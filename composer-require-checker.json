@@ -1,6 +1,6 @@
 {
   "symbol-whitelist": [
-    "self",
+    "array",
     "string"
   ]
 }

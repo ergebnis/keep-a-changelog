@@ -4,8 +4,79 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e2b36d407c11b53451f064595d874bc",
-    "packages": [],
+    "content-hash": "1460fe8f7eb4f455ae7765f874b3c923",
+    "packages": [
+        {
+            "name": "ergebnis/version",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/version.git",
+                "reference": "5efa0ab1bcbb0717cd6d9d63659a659f8e402cd8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/version/zipball/5efa0ab1bcbb0717cd6d9d63659a659f8e402cd8",
+                "reference": "5efa0ab1bcbb0717cd6d9d63659a659f8e402cd8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.42.0",
+                "ergebnis/data-provider": "^3.2.0",
+                "ergebnis/license": "^2.4.0",
+                "ergebnis/php-cs-fixer-config": "^6.23.0",
+                "ergebnis/phpunit-slow-test-detector": "^2.10.0",
+                "ext-bcmath": "*",
+                "fakerphp/faker": "^1.23.1",
+                "infection/infection": "~0.26.6",
+                "phpunit/phpunit": "^9.6.17",
+                "psalm/plugin-phpunit": "~0.18.4",
+                "rector/rector": "^1.0.2",
+                "vimeo/psalm": "^5.23.0"
+            },
+            "suggest": {
+                "ext-bcmath": "If you want to bump Major, Minor, or Patch versions greater than PHP_MAX_INT."
+            },
+            "type": "library",
+            "extra": {
+                "composer-normalize": {
+                    "indent-size": 2,
+                    "indent-style": "space"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Version\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com",
+                    "homepage": "https://localheinz.com"
+                }
+            ],
+            "description": "Provides an abstraction of a semantic version.",
+            "homepage": "https://github.com/ergebnis/version",
+            "keywords": [
+                "semantic",
+                "version"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/version/issues",
+                "security": "https://github.com/ergebnis/version/blob/main/.github/SECURITY.md",
+                "source": "https://github.com/ergebnis/version"
+            },
+            "time": "2024-03-10T12:44:32+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "amphp/amp",
