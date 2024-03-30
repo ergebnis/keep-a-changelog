@@ -47,7 +47,7 @@ final class VersionCollectorTest extends Framework\TestCase
         self::assertSame([], $collected);
     }
 
-    public function testCollectArrayWithVersionWhenContentContainsVersions(): void
+    public function testCollectReturnsArrayWithVersionsWhenContentContainsVersions(): void
     {
         $content = \file_get_contents(__DIR__ . '/../../Fixture/Markdown/VersionCollector/CHANGELOG.md');
 
