@@ -47,9 +47,25 @@ final class VersionCollectorTest extends Framework\TestCase
         self::assertSame([], $collected);
     }
 
+    public function testCollectReturnsArrayWithVersionsWhenContentContainsInvalidVersions(): void
+    {
+        $content = \file_get_contents(__DIR__ . '/../../Fixture/broken/CHANGELOG.md');
+
+        $versionCollector = new Markdown\VersionCollector();
+
+        $collected = $versionCollector->collect($content);
+
+        $expected = [
+            Version\Version::fromString('1.0.0'),
+            Version\Version::fromString('1.1.0'),
+        ];
+
+        self::assertEquals($expected, $collected);
+    }
+
     public function testCollectReturnsArrayWithVersionsWhenContentContainsVersions(): void
     {
-        $content = \file_get_contents(__DIR__ . '/../../Fixture/Markdown/VersionCollector/CHANGELOG.md');
+        $content = \file_get_contents(__DIR__ . '/../../Fixture/ergebnis/version/CHANGELOG.md');
 
         $versionCollector = new Markdown\VersionCollector();
 
