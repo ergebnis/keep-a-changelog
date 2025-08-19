@@ -1,0 +1,14 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Offset ''version'' might not exist on array\{0\?\: string, version\?\: non\-empty\-string, 1\?\: non\-empty\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: src/Markdown/VersionCollector.php
+
+		-
+			message: '#^Parameter \#1 \$content of method Ergebnis\\KeepAChangelog\\Markdown\\VersionCollector\:\:collect\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: test/Unit/Markdown/VersionCollectorTest.php
+
