@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Offset ''version'' might not exist on array\{0\?\: string, version\?\: non\-empty\-string, 1\?\: non\-empty\-string\}\.$#'
+			message: '#^Offset ''version'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, version\: non\-empty\-string, 1\: non\-empty\-string\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: src/Markdown/VersionCollector.php
