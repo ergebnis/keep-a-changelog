@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85ef6c8ad21e6caab89637aa2cf5773c",
+    "content-hash": "2ebe0948c671ecd092cffe1a4d00b527",
     "packages": [
         {
             "name": "ergebnis/version",
@@ -1260,16 +1260,16 @@
         },
         {
             "name": "ergebnis/rector-rules",
-            "version": "1.12.4",
+            "version": "1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/rector-rules.git",
-                "reference": "23f512c66dfa7b90746ce8eb48f4ddb1ddd090f8"
+                "reference": "78f0a1a16835db99e920359cfc2e923c6821aa34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/rector-rules/zipball/23f512c66dfa7b90746ce8eb48f4ddb1ddd090f8",
-                "reference": "23f512c66dfa7b90746ce8eb48f4ddb1ddd090f8",
+                "url": "https://api.github.com/repos/ergebnis/rector-rules/zipball/78f0a1a16835db99e920359cfc2e923c6821aa34",
+                "reference": "78f0a1a16835db99e920359cfc2e923c6821aa34",
                 "shasum": ""
             },
             "require": {
@@ -1279,16 +1279,20 @@
                 "rector/rector": "^2.3.8"
             },
             "require-dev": {
+                "ergebnis/classy": "^3.0.0",
                 "ergebnis/composer-normalize": "^2.50.0",
                 "ergebnis/data-provider": "^3.6.0",
                 "ergebnis/license": "^2.7.0",
                 "ergebnis/php-cs-fixer-config": "^6.60.2",
-                "ergebnis/phpunit-slow-test-detector": "^2.23.0",
+                "ergebnis/phpunit-slow-test-detector": "^2.24.0",
                 "phpstan/extension-installer": "^1.4.3",
                 "phpstan/phpstan-deprecation-rules": "^2.0.4",
                 "phpstan/phpstan-phpunit": "^2.0.16",
                 "phpstan/phpstan-strict-rules": "^2.0.10",
-                "phpunit/phpunit": "^9.6.33"
+                "phpunit/phpunit": "^9.6.33",
+                "sebastian/diff": "^4.0.6",
+                "symfony/filesystem": "^5.4.45",
+                "symfony/finder": "^5.4.45"
             },
             "type": "library",
             "extra": {
@@ -1320,7 +1324,7 @@
                 "security": "https://github.com/ergebnis/rector-rules/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/rector-rules"
             },
-            "time": "2026-03-13T17:40:18+00:00"
+            "time": "2026-04-09T16:16:33+00:00"
         },
         {
             "name": "erickskrauch/php-cs-fixer-custom-fixers",
