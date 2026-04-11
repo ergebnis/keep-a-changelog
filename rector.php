@@ -29,8 +29,8 @@ return static function (Config\RectorConfig $rectorConfig): void {
     $rectorConfig->phpVersion(ValueObject\PhpVersion::PHP_74);
 
     $rectorConfig->rules([
-        Rector\Rules\Faker\GeneratorPropertyFetchToMethodCallRector::class,
         Rector\Rules\Expressions\Arrays\SortAssociativeArrayByKeyRector::class,
+        Rector\Rules\Faker\GeneratorPropertyFetchToMethodCallRector::class,
     ]);
 
     $rectorConfig->sets([
