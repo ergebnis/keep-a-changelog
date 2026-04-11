@@ -11,9 +11,11 @@ For a full diff see [`88cf670...main`][88cf670...main].
 ### Added
 
 - Added `Section` ([#273]), by [@localheinz]
+- Added `Author` ([#275]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
 [#273]: https://github.com/ergebnis/keep-a-changelog/pull/273
+[#275]: https://github.com/ergebnis/keep-a-changelog/pull/275
 
 [@localheinz]: https://github.com/localheinz
