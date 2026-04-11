@@ -1,3 +1,20 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Method Ergebnis\\KeepAChangelog\\Entry\:\:__construct\(\) has parameter \$notes with a nullable type declaration\.$#'
+			identifier: ergebnis.noParameterWithNullableTypeDeclaration
+			count: 1
+			path: src/Entry.php
+
+		-
+			message: '#^Method Ergebnis\\KeepAChangelog\\Entry\:\:create\(\) has parameter \$notes with a nullable type declaration\.$#'
+			identifier: ergebnis.noParameterWithNullableTypeDeclaration
+			count: 1
+			path: src/Entry.php
+
+		-
+			message: '#^Method Ergebnis\\KeepAChangelog\\Entry\:\:notes\(\) has a nullable return type declaration\.$#'
+			identifier: ergebnis.noNullableReturnTypeDeclaration
+			count: 1
+			path: src/Entry.php
 
