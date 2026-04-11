@@ -21,6 +21,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `Owner` ([#282]), by [@localheinz]
 - Added `Name` ([#283]), by [@localheinz]
 - Added `InitialCommit` ([#284]), by [@localheinz]
+- Added `DefaultBranch` ([#285]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
@@ -35,5 +36,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#282]: https://github.com/ergebnis/keep-a-changelog/pull/282
 [#283]: https://github.com/ergebnis/keep-a-changelog/pull/283
 [#284]: https://github.com/ergebnis/keep-a-changelog/pull/284
+[#285]: https://github.com/ergebnis/keep-a-changelog/pull/285
 
 [@localheinz]: https://github.com/localheinz
