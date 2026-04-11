@@ -20,6 +20,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `Changes` ([#281]), by [@localheinz]
 - Added `Owner` ([#282]), by [@localheinz]
 - Added `Name` ([#283]), by [@localheinz]
+- Added `InitialCommit` ([#284]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
@@ -33,5 +34,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#281]: https://github.com/ergebnis/keep-a-changelog/pull/281
 [#282]: https://github.com/ergebnis/keep-a-changelog/pull/282
 [#283]: https://github.com/ergebnis/keep-a-changelog/pull/283
+[#284]: https://github.com/ergebnis/keep-a-changelog/pull/284
 
 [@localheinz]: https://github.com/localheinz
