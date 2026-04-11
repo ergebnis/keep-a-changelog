@@ -18,3 +18,21 @@ parameters:
 			count: 1
 			path: src/Entry.php
 
+		-
+			message: '#^Method Ergebnis\\KeepAChangelog\\Repository\:\:__construct\(\) has parameter \$initialCommit with a nullable type declaration\.$#'
+			identifier: ergebnis.noParameterWithNullableTypeDeclaration
+			count: 1
+			path: src/Repository.php
+
+		-
+			message: '#^Method Ergebnis\\KeepAChangelog\\Repository\:\:create\(\) has parameter \$initialCommit with a nullable type declaration\.$#'
+			identifier: ergebnis.noParameterWithNullableTypeDeclaration
+			count: 1
+			path: src/Repository.php
+
+		-
+			message: '#^Method Ergebnis\\KeepAChangelog\\Repository\:\:initialCommit\(\) has a nullable return type declaration\.$#'
+			identifier: ergebnis.noNullableReturnTypeDeclaration
+			count: 1
+			path: src/Repository.php
+
