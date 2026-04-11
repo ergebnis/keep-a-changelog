@@ -56,7 +56,7 @@ final class EntryListTest extends Framework\TestCase
         $values = \array_map(static function () use ($faker): Entry {
             return Entry::create(
                 Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1, 100)),
+                PullRequest::fromInt($faker->numberBetween(1)),
                 Author::fromString('localheinz'),
                 Notes::fromString($faker->realText()),
             );
