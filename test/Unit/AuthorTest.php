@@ -15,7 +15,6 @@ namespace Ergebnis\KeepAChangelog\Test\Unit;
 
 use Ergebnis\KeepAChangelog\Author;
 use Ergebnis\KeepAChangelog\InvalidAuthor;
-use Ergebnis\KeepAChangelog\Test;
 use PHPUnit\Framework;
 
 /**
@@ -25,8 +24,6 @@ use PHPUnit\Framework;
  */
 final class AuthorTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
-
     /**
      * @dataProvider provideInvalidValue
      */

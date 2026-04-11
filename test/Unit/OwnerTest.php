@@ -15,7 +15,6 @@ namespace Ergebnis\KeepAChangelog\Test\Unit;
 
 use Ergebnis\KeepAChangelog\InvalidOwner;
 use Ergebnis\KeepAChangelog\Owner;
-use Ergebnis\KeepAChangelog\Test;
 use PHPUnit\Framework;
 
 /**
@@ -25,8 +24,6 @@ use PHPUnit\Framework;
  */
 final class OwnerTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
-
     /**
      * @dataProvider provideInvalidValue
      */
