@@ -1,5 +1,5 @@
 .PHONY: it
-it: refactoring coding-standards security-analysis static-code-analysis tests ## Runs the refactoring, coding-standards, security-analysis, static-code-analysis, and tests targets
+it: dependency-analysis refactoring coding-standards security-analysis static-code-analysis tests mutation-tests ## Runs the dependency-analysis, refactoring, coding-standards, security-analysis, static-code-analysis, tests, and mutation-tests targets
 
 .PHONY: backward-compatibility-analysis
 backward-compatibility-analysis: vendor ## Runs a backward-compatibility analysis with roave/backward-compatibility-check
