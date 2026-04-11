@@ -18,6 +18,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `Entry` ([#279]), by [@localheinz]
 - Added `EntryList` ([#280]), by [@localheinz]
 - Added `Changes` ([#281]), by [@localheinz]
+- Added `Owner` ([#282]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
@@ -29,5 +30,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#279]: https://github.com/ergebnis/keep-a-changelog/pull/279
 [#280]: https://github.com/ergebnis/keep-a-changelog/pull/280
 [#281]: https://github.com/ergebnis/keep-a-changelog/pull/281
+[#282]: https://github.com/ergebnis/keep-a-changelog/pull/282
 
 [@localheinz]: https://github.com/localheinz
