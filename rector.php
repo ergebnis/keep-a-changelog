@@ -30,6 +30,7 @@ return static function (Config\RectorConfig $rectorConfig): void {
 
     $rectorConfig->rules([
         Rector\Rules\Faker\GeneratorPropertyFetchToMethodCallRector::class,
+        Rector\Rules\Expressions\Arrays\SortAssociativeArrayByKeyRector::class,
     ]);
 
     $rectorConfig->sets([
