@@ -33,7 +33,7 @@ final class EntryTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testCreateReturnsEntryWhenNullableFieldsAreNotNull(): void
+    public function testCreateReturnsEntryWhenNullableValuesAreNotNull(): void
     {
         $faker = self::faker();
 
@@ -55,7 +55,7 @@ final class EntryTest extends Framework\TestCase
         self::assertSame($notes, $entry->notes());
     }
 
-    public function testCreateReturnsEntryWhenNullableFieldsAreNull(): void
+    public function testCreateReturnsEntryWhenNullableValuesAreNull(): void
     {
         $faker = self::faker();
 
