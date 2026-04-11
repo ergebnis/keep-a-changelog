@@ -14,6 +14,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `Author` ([#275]), by [@localheinz]
 - Added `Description` ([#276]), by [@localheinz]
 - Added `Notes` ([#277]), by [@localheinz]
+- Added `PullRequest` ([#278]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
@@ -21,5 +22,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#275]: https://github.com/ergebnis/keep-a-changelog/pull/275
 [#276]: https://github.com/ergebnis/keep-a-changelog/pull/276
 [#277]: https://github.com/ergebnis/keep-a-changelog/pull/277
+[#278]: https://github.com/ergebnis/keep-a-changelog/pull/278
 
 [@localheinz]: https://github.com/localheinz
