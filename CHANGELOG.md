@@ -11,9 +11,11 @@ For a full diff see [`88cf670...main`][88cf670...main].
 ### Added
 
 - Added `Markdown\VersionCollector` ([#12]), by [@localheinz]
+- Added `Section` ([#273]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
 [#12]: https://github.com/ergebnis/keep-a-changelog/pull/12
+[#273]: https://github.com/ergebnis/keep-a-changelog/pull/273
 
 [@localheinz]: https://github.com/localheinz

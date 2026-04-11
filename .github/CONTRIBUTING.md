@@ -138,7 +138,7 @@ Run
 make
 ```
 
-to automatically refactor code, enforce coding standards, run a static code analysis, and run tests!
+to run a dependency analysis, automatically refactor code, enforce coding standards, run a security analysis, run a static code analysis, run tests, and run mutation tests!
 
 ## Help
 
