@@ -22,6 +22,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `Name` ([#283]), by [@localheinz]
 - Added `InitialCommit` ([#284]), by [@localheinz]
 - Added `DefaultBranch` ([#285]), by [@localheinz]
+- Added `Repository` ([#286]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
@@ -37,5 +38,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#283]: https://github.com/ergebnis/keep-a-changelog/pull/283
 [#284]: https://github.com/ergebnis/keep-a-changelog/pull/284
 [#285]: https://github.com/ergebnis/keep-a-changelog/pull/285
+[#286]: https://github.com/ergebnis/keep-a-changelog/pull/286
 
 [@localheinz]: https://github.com/localheinz
