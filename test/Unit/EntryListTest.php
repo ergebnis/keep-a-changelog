@@ -57,7 +57,7 @@ final class EntryListTest extends Framework\TestCase
             return Entry::create(
                 Description::fromString($faker->sentence()),
                 PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString('localheinz'),
+                Author::fromString($faker->slug(2)),
                 Notes::fromString($faker->realText()),
             );
         }, \range(0, 4));

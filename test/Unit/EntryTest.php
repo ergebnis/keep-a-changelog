@@ -39,7 +39,7 @@ final class EntryTest extends Framework\TestCase
 
         $description = Description::fromString($faker->sentence());
         $pullRequest = PullRequest::fromInt($faker->numberBetween(1));
-        $author = Author::fromString('localheinz');
+        $author = Author::fromString($faker->slug(2));
         $notes = Notes::fromString($faker->realText());
 
         $entry = Entry::create(
@@ -61,7 +61,7 @@ final class EntryTest extends Framework\TestCase
 
         $description = Description::fromString($faker->sentence());
         $pullRequest = PullRequest::fromInt($faker->numberBetween(1));
-        $author = Author::fromString('localheinz');
+        $author = Author::fromString($faker->slug(2));
 
         $entry = Entry::create(
             $description,
