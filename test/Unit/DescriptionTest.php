@@ -15,7 +15,6 @@ namespace Ergebnis\KeepAChangelog\Test\Unit;
 
 use Ergebnis\KeepAChangelog\Description;
 use Ergebnis\KeepAChangelog\InvalidDescription;
-use Ergebnis\KeepAChangelog\Test;
 use PHPUnit\Framework;
 
 /**
@@ -25,8 +24,6 @@ use PHPUnit\Framework;
  */
 final class DescriptionTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
-
     /**
      * @dataProvider provideInvalidValue
      */
