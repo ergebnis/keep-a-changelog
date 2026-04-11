@@ -60,8 +60,8 @@ final class AuthorTest extends Framework\TestCase
             'with-underscore' => 'local_heinz',
         ];
 
-        foreach ($values as $description => $value) {
-            yield $description => [
+        foreach ($values as $key => $value) {
+            yield $key => [
                 $value,
             ];
         }
@@ -93,8 +93,8 @@ final class AuthorTest extends Framework\TestCase
             'length-minimum' => 'a',
         ];
 
-        foreach ($values as $description => $value) {
-            yield $description => [
+        foreach ($values as $key => $value) {
+            yield $key => [
                 $value,
             ];
         }
