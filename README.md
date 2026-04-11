@@ -1,9 +1,9 @@
 # keep-a-changelog
 
-[![Integrate](https://github.com/ergebnis/keep-a-changelog/workflows/Integrate/badge.svg)](https://github.com/ergebnis/keep-a-changelog/actions)
-[![Merge](https://github.com/ergebnis/keep-a-changelog/workflows/Merge/badge.svg)](https://github.com/ergebnis/keep-a-changelog/actions)
-[![Release](https://github.com/ergebnis/keep-a-changelog/workflows/Release/badge.svg)](https://github.com/ergebnis/keep-a-changelog/actions)
-[![Renew](https://github.com/ergebnis/keep-a-changelog/workflows/Renew/badge.svg)](https://github.com/ergebnis/keep-a-changelog/actions)
+[![Integrate](https://github.com/ergebnis/keep-a-changelog/actions/workflows/integrate.yaml/badge.svg?branch=main)](https://github.com/ergebnis/keep-a-changelog/actions/workflows/integrate.yaml)
+[![Merge](https://github.com/ergebnis/keep-a-changelog/actions/workflows/merge.yaml/badge.svg)](https://github.com/ergebnis/keep-a-changelog/actions/workflows/merge.yaml)
+[![Release](https://github.com/ergebnis/keep-a-changelog/actions/workflows/release.yaml/badge.svg)](https://github.com/ergebnis/keep-a-changelog/actions/workflows/release.yaml)
+[![Renew](https://github.com/ergebnis/keep-a-changelog/actions/workflows/renew.yaml/badge.svg)](https://github.com/ergebnis/keep-a-changelog/actions/workflows/renew.yaml)
 
 [![Code Coverage](https://codecov.io/gh/ergebnis/keep-a-changelog/branch/main/graph/badge.svg)](https://codecov.io/gh/ergebnis/keep-a-changelog)
 [![Type Coverage](https://shepherd.dev/github/ergebnis/keep-a-changelog/coverage.svg)](https://shepherd.dev/github/ergebnis/keep-a-changelog)
