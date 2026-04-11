@@ -46,4 +46,34 @@ final class PullRequestTest extends Framework\TestCase
 
         self::assertSame($value, $pullRequest->toInt());
     }
+
+    public function testCompareReturnsMinusOneWhenValueIsLessThanOther(): void
+    {
+        $value = self::faker()->numberBetween(1);
+
+        $one = PullRequest::fromInt($value);
+        $two = PullRequest::fromInt($value + 1);
+
+        self::assertSame(-1, $one->compare($two));
+    }
+
+    public function testCompareReturnsZeroWhenValuesAreEqual(): void
+    {
+        $value = self::faker()->numberBetween(1);
+
+        $one = PullRequest::fromInt($value);
+        $two = PullRequest::fromInt($value);
+
+        self::assertSame(0, $one->compare($two));
+    }
+
+    public function testCompareReturnsPlusOneWhenValueIsGreaterThanOther(): void
+    {
+        $value = self::faker()->numberBetween(1);
+
+        $one = PullRequest::fromInt($value + 1);
+        $two = PullRequest::fromInt($value);
+
+        self::assertSame(1, $one->compare($two));
+    }
 }
