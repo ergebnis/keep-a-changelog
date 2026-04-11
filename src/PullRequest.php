@@ -38,4 +38,9 @@ final class PullRequest
     {
         return $this->value;
     }
+
+    public function compare(self $other): int
+    {
+        return $this->value <=> $other->value;
+    }
 }
