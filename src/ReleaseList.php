@@ -77,4 +77,15 @@ final class ReleaseList
 
         return new self($sorted);
     }
+
+    public function sortedByTagDescending(): self
+    {
+        $sorted = $this->values;
+
+        \usort($sorted, static function (Release $a, Release $b): int {
+            return $b->tag()->compare($a->tag());
+        });
+
+        return new self($sorted);
+    }
 }
