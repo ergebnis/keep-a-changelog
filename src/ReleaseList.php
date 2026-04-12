@@ -22,15 +22,9 @@ final class ReleaseList
 
     /**
      * @param list<Release> $values
-     *
-     * @throws InvalidReleaseList
      */
     private function __construct(array $values)
     {
-        \usort($values, static function (Release $a, Release $b): int {
-            return $a->tag()->compare($b->tag());
-        });
-
         $this->values = $values;
     }
 
@@ -71,5 +65,16 @@ final class ReleaseList
     public function toArray(): array
     {
         return $this->values;
+    }
+
+    public function sortedByTagAscending(): self
+    {
+        $sorted = $this->values;
+
+        \usort($sorted, static function (Release $a, Release $b): int {
+            return $a->tag()->compare($b->tag());
+        });
+
+        return new self($sorted);
     }
 }
