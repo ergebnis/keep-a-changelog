@@ -67,7 +67,7 @@ final class EntryListTest extends Framework\TestCase
         self::assertSame($values, $entryList->toArray());
     }
 
-    public function testSortByPullRequestAscendingReturnsEntryListWithEntriesSortedByPullRequestAscending(): void
+    public function testSortedByPullRequestAscendingReturnsEntryListWithEntriesSortedByPullRequestAscending(): void
     {
         $faker = self::faker();
 
@@ -82,7 +82,7 @@ final class EntryListTest extends Framework\TestCase
 
         $entryList = EntryList::create(...$values);
 
-        $mutated = $entryList->sortByPullRequestAscending();
+        $mutated = $entryList->sortedByPullRequestAscending();
 
         self::assertNotSame($entryList, $mutated);
 

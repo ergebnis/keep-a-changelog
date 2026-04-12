@@ -46,7 +46,7 @@ final class EntryList
         return $this->values;
     }
 
-    public function sortByPullRequestAscending(): self
+    public function sortedByPullRequestAscending(): self
     {
         $sorted = $this->values;
 
