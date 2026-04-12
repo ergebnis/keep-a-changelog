@@ -13,34 +13,32 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog;
 
-use Ergebnis\Version;
-
 final class Release
 {
-    private Version\Version $version;
+    private Tag $tag;
     private Changes $changes;
 
     private function __construct(
-        Version\Version $version,
+        Tag $tag,
         Changes $changes
     ) {
-        $this->version = $version;
+        $this->tag = $tag;
         $this->changes = $changes;
     }
 
     public static function create(
-        Version\Version $version,
+        Tag $tag,
         Changes $changes
     ): self {
         return new self(
-            $version,
+            $tag,
             $changes,
         );
     }
 
-    public function version(): Version\Version
+    public function tag(): Tag
     {
-        return $this->version;
+        return $this->tag;
     }
 
     public function changes(): Changes

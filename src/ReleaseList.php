@@ -28,7 +28,7 @@ final class ReleaseList
     private function __construct(array $values)
     {
         \usort($values, static function (Release $a, Release $b): int {
-            return $a->version()->compare($b->version());
+            return $a->tag()->compare($b->tag());
         });
 
         $this->values = $values;
@@ -44,22 +44,22 @@ final class ReleaseList
      */
     public static function create(Release ...$values): self
     {
-        $duplicateVersions = [];
+        $duplicateTags = [];
 
-        $versions = [];
+        $tags = [];
 
         foreach ($values as $value) {
-            $version = $value->version();
+            $tag = $value->tag();
 
-            if (\in_array($version->toString(), $versions, true)) {
-                $duplicateVersions[] = $value->version();
+            if (\in_array($tag->toString(), $tags, true)) {
+                $duplicateTags[] = $value->tag();
             }
 
-            $versions[] = $version->toString();
+            $tags[] = $tag->toString();
         }
 
-        if ([] !== $duplicateVersions) {
-            throw InvalidReleaseList::withDuplicateVersions(...$duplicateVersions);
+        if ([] !== $duplicateTags) {
+            throw InvalidReleaseList::withDuplicateTags(...$duplicateTags);
         }
 
         return new self($values);

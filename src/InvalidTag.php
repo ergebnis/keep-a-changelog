@@ -13,15 +13,13 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog;
 
-final class InvalidReleaseList extends \InvalidArgumentException
+final class InvalidTag extends \InvalidArgumentException
 {
-    public static function withDuplicateTags(Tag ...$tags): self
+    public static function named(string $value): self
     {
         return new self(\sprintf(
-            'Release list contains more than one release with tag(s) "%s".',
-            \implode('", "', \array_map(static function (Tag $tag): string {
-                return $tag->toString();
-            }, $tags)),
+            'Value "%s" is not a valid tag.',
+            $value,
         ));
     }
 }
