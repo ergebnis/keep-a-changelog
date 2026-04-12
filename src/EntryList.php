@@ -25,10 +25,6 @@ final class EntryList
      */
     private function __construct(array $values)
     {
-        \usort($values, static function (Entry $a, Entry $b): int {
-            return $a->pullRequest()->compare($b->pullRequest());
-        });
-
         $this->values = $values;
     }
 
@@ -48,5 +44,16 @@ final class EntryList
     public function toArray(): array
     {
         return $this->values;
+    }
+
+    public function sortByPullRequestAscending(): self
+    {
+        $sorted = $this->values;
+
+        \usort($sorted, static function (Entry $a, Entry $b): int {
+            return $a->pullRequest()->compare($b->pullRequest());
+        });
+
+        return new self($sorted);
     }
 }

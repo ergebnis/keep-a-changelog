@@ -64,12 +64,34 @@ final class EntryListTest extends Framework\TestCase
 
         $entryList = EntryList::create(...$values);
 
+        self::assertSame($values, $entryList->toArray());
+    }
+
+    public function testSortByPullRequestAscendingReturnsEntryListWithEntriesSortedByPullRequestAscending(): void
+    {
+        $faker = self::faker();
+
+        $values = \array_map(static function () use ($faker): Entry {
+            return Entry::create(
+                Description::fromString($faker->sentence()),
+                PullRequest::fromInt($faker->numberBetween(1)),
+                Author::fromString($faker->slug(2)),
+                Notes::fromString($faker->realText()),
+            );
+        }, \range(0, 4));
+
+        $entryList = EntryList::create(...$values);
+
+        $mutated = $entryList->sortByPullRequestAscending();
+
+        self::assertNotSame($entryList, $mutated);
+
         $sorted = $values;
 
         \usort($sorted, static function (Entry $a, Entry $b): int {
             return $a->pullRequest()->compare($b->pullRequest());
         });
 
-        self::assertSame($sorted, $entryList->toArray());
+        self::assertEquals(EntryList::create(...$sorted), $mutated);
     }
 }
