@@ -183,4 +183,27 @@ final class ReleaseListTest extends Framework\TestCase
 
         self::assertEquals(ReleaseList::create(...$sorted), $mutated);
     }
+
+    public function testIsEmptyReturnsFalseWhenReleaseListIsNotEmpty(): void
+    {
+        $faker = self::faker()->unique();
+
+        $values = \array_map(static function () use ($faker): Release {
+            return Release::create(
+                Tag::fromString($faker->semver()),
+                Changes::empty(),
+            );
+        }, \range(0, 4));
+
+        $releaseList = ReleaseList::create(...$values);
+
+        self::assertFalse($releaseList->isEmpty());
+    }
+
+    public function testIsEmptyReturnsRTrueWhenReleaseListIsEmpty(): void
+    {
+        $releaseList = ReleaseList::empty();
+
+        self::assertTrue($releaseList->isEmpty());
+    }
 }

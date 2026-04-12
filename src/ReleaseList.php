@@ -106,4 +106,9 @@ final class ReleaseList
 
         return new self($sorted);
     }
+
+    public function isEmpty(): bool
+    {
+        return [] === $this->values;
+    }
 }

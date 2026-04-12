@@ -97,4 +97,33 @@ final class Changes
     {
         return $this->security;
     }
+
+    public function isEmpty(): bool
+    {
+        if (!$this->added->isEmpty()) {
+            return false;
+        }
+
+        if (!$this->changed->isEmpty()) {
+            return false;
+        }
+
+        if (!$this->deprecated->isEmpty()) {
+            return false;
+        }
+
+        if (!$this->fixed->isEmpty()) {
+            return false;
+        }
+
+        if (!$this->removed->isEmpty()) {
+            return false;
+        }
+
+        if (!$this->security->isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
 }
