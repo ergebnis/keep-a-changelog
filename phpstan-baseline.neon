@@ -25,6 +25,12 @@ parameters:
 			path: src/ReleaseList.php
 
 		-
+			message: '#^Method Ergebnis\\KeepAChangelog\\ReleaseList\:\:last\(\) has a nullable return type declaration\.$#'
+			identifier: ergebnis.noNullableReturnTypeDeclaration
+			count: 1
+			path: src/ReleaseList.php
+
+		-
 			message: '#^Method Ergebnis\\KeepAChangelog\\Repository\:\:__construct\(\) has parameter \$initialCommit with a nullable type declaration\.$#'
 			identifier: ergebnis.noParameterWithNullableTypeDeclaration
 			count: 1
