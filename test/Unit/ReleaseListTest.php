@@ -79,12 +79,32 @@ final class ReleaseListTest extends Framework\TestCase
 
         $releaseList = ReleaseList::create(...$values);
 
+        self::assertSame($values, $releaseList->toArray());
+    }
+
+    public function testSortedByTagAscendingReturnsReleaseListWithReleasesSortedByTagAscending(): void
+    {
+        $faker = self::faker()->unique();
+
+        $values = \array_map(static function () use ($faker): Release {
+            return Release::create(
+                Tag::fromString($faker->semver()),
+                Changes::empty(),
+            );
+        }, \range(0, 4));
+
+        $releaseList = ReleaseList::create(...$values);
+
+        $mutated = $releaseList->sortedByTagAscending();
+
+        self::assertNotSame($releaseList, $mutated);
+
         $sorted = $values;
 
         \usort($sorted, static function (Release $a, Release $b): int {
             return $a->tag()->compare($b->tag());
         });
 
-        self::assertSame($sorted, $releaseList->toArray());
+        self::assertEquals(ReleaseList::create(...$sorted), $mutated);
     }
 }
