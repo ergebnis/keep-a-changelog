@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog;
 
-final class DefaultBranch
+final class DefaultBranch implements Reference
 {
     private string $value;
 
