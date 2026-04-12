@@ -78,6 +78,15 @@ final class ReleaseList
         return new self($sorted);
     }
 
+    public function first(): ?Release
+    {
+        if ([] === $this->values) {
+            return null;
+        }
+
+        return $this->values[0];
+    }
+
     public function sortedByTagDescending(): self
     {
         $sorted = $this->values;
