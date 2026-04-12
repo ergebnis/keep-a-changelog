@@ -34,6 +34,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 
 - Added `EntryList::sortedByPullRequestAscending()` ([#294]), by [@localheinz]
 - Added `ReleaseList::sortedByTagAscending()` ([#295]), by [@localheinz]
+- Added `ReleaseList::sortedByTagDescending()` ([#296]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
@@ -58,5 +59,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#293]: https://github.com/ergebnis/keep-a-changelog/pull/293
 [#294]: https://github.com/ergebnis/keep-a-changelog/pull/294
 [#295]: https://github.com/ergebnis/keep-a-changelog/pull/295
+[#296]: https://github.com/ergebnis/keep-a-changelog/pull/296
 
 [@localheinz]: https://github.com/localheinz
