@@ -15,7 +15,7 @@ namespace Ergebnis\KeepAChangelog;
 
 use Ergebnis\Version;
 
-final class Tag
+final class Tag implements Reference
 {
     private Version\Version $version;
 

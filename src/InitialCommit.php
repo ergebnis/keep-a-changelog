@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog;
 
-final class InitialCommit
+final class InitialCommit implements Reference
 {
     private string $value;
 

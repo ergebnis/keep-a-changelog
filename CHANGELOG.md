@@ -28,6 +28,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `ReleaseList` ([#289]), by [@localheinz]
 - Added `Changelog` ([#290]), by [@localheinz]
 - Added `Tag` ([#292]), by [@localheinz]
+- Added `Reference` ([#293]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
@@ -49,5 +50,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#289]: https://github.com/ergebnis/keep-a-changelog/pull/289
 [#290]: https://github.com/ergebnis/keep-a-changelog/pull/290
 [#292]: https://github.com/ergebnis/keep-a-changelog/pull/292
+[#293]: https://github.com/ergebnis/keep-a-changelog/pull/293
 
 [@localheinz]: https://github.com/localheinz
