@@ -14,32 +14,34 @@ declare(strict_types=1);
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
 use Ergebnis\KeepAChangelog\InvalidReleaseList;
+use Ergebnis\KeepAChangelog\Tag;
 use Ergebnis\KeepAChangelog\Test;
-use Ergebnis\Version;
 use PHPUnit\Framework;
 
 /**
  * @covers \Ergebnis\KeepAChangelog\InvalidReleaseList
+ *
+ * @uses \Ergebnis\KeepAChangelog\Tag
  */
 final class InvalidReleaseListTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testWithDuplicateVersionsReturnsException(): void
+    public function testWithDuplicateTagsReturnsException(): void
     {
         $faker = self::faker()->unique();
 
-        $versions = \array_map(static function () use ($faker): Version\Version {
-            return Version\Version::fromString($faker->semver());
+        $tags = \array_map(static function () use ($faker): Tag {
+            return Tag::fromString($faker->semver());
         }, \range(0, 2));
 
-        $exception = InvalidReleaseList::withDuplicateVersions(...$versions);
+        $exception = InvalidReleaseList::withDuplicateTags(...$tags);
 
         $expected = \sprintf(
-            'Release list contains more than one release with version(s) "%s".',
-            \implode('", "', \array_map(static function (Version\Version $version): string {
-                return $version->toString();
-            }, $versions)),
+            'Release list contains more than one release with tag(s) "%s".',
+            \implode('", "', \array_map(static function (Tag $tag): string {
+                return $tag->toString();
+            }, $tags)),
         );
 
         self::assertSame($expected, $exception->getMessage());

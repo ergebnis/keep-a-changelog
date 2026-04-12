@@ -22,9 +22,9 @@ use Ergebnis\KeepAChangelog\Owner;
 use Ergebnis\KeepAChangelog\Release;
 use Ergebnis\KeepAChangelog\ReleaseList;
 use Ergebnis\KeepAChangelog\Repository;
+use Ergebnis\KeepAChangelog\Tag;
 use Ergebnis\KeepAChangelog\Test;
 use Ergebnis\KeepAChangelog\Unreleased;
-use Ergebnis\Version;
 use PHPUnit\Framework;
 
 /**
@@ -39,6 +39,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\KeepAChangelog\Release
  * @uses \Ergebnis\KeepAChangelog\ReleaseList
  * @uses \Ergebnis\KeepAChangelog\Repository
+ * @uses \Ergebnis\KeepAChangelog\Tag
  * @uses \Ergebnis\KeepAChangelog\Unreleased
  */
 final class ChangelogTest extends Framework\TestCase
@@ -62,7 +63,7 @@ final class ChangelogTest extends Framework\TestCase
 
         $releases = ReleaseList::create(...\array_map(static function () use ($uniqueFaker): Release {
             return Release::create(
-                Version\Version::fromString($uniqueFaker->semver()),
+                Tag::fromString($uniqueFaker->semver()),
                 Changes::empty(),
             );
         }, \range(0, 2)));

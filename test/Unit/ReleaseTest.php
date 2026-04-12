@@ -21,8 +21,8 @@ use Ergebnis\KeepAChangelog\EntryList;
 use Ergebnis\KeepAChangelog\Notes;
 use Ergebnis\KeepAChangelog\PullRequest;
 use Ergebnis\KeepAChangelog\Release;
+use Ergebnis\KeepAChangelog\Tag;
 use Ergebnis\KeepAChangelog\Test;
-use Ergebnis\Version;
 use PHPUnit\Framework;
 
 /**
@@ -35,6 +35,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\KeepAChangelog\EntryList
  * @uses \Ergebnis\KeepAChangelog\Notes
  * @uses \Ergebnis\KeepAChangelog\PullRequest
+ * @uses \Ergebnis\KeepAChangelog\Tag
  */
 final class ReleaseTest extends Framework\TestCase
 {
@@ -44,7 +45,7 @@ final class ReleaseTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $version = Version\Version::fromString($faker->semver());
+        $tag = Tag::fromString($faker->semver());
 
         $changes = Changes::create(
             EntryList::create(...\array_map(static function () use ($faker): Entry {
@@ -98,11 +99,11 @@ final class ReleaseTest extends Framework\TestCase
         );
 
         $release = Release::create(
-            $version,
+            $tag,
             $changes,
         );
 
-        self::assertSame($version, $release->version());
+        self::assertSame($tag, $release->tag());
         self::assertSame($changes, $release->changes());
     }
 }

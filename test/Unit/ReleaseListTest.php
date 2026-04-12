@@ -17,8 +17,8 @@ use Ergebnis\KeepAChangelog\Changes;
 use Ergebnis\KeepAChangelog\InvalidReleaseList;
 use Ergebnis\KeepAChangelog\Release;
 use Ergebnis\KeepAChangelog\ReleaseList;
+use Ergebnis\KeepAChangelog\Tag;
 use Ergebnis\KeepAChangelog\Test;
-use Ergebnis\Version;
 use PHPUnit\Framework;
 
 /**
@@ -28,6 +28,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\KeepAChangelog\EntryList
  * @uses \Ergebnis\KeepAChangelog\InvalidReleaseList
  * @uses \Ergebnis\KeepAChangelog\Release
+ * @uses \Ergebnis\KeepAChangelog\Tag
  */
 final class ReleaseListTest extends Framework\TestCase
 {
@@ -47,15 +48,15 @@ final class ReleaseListTest extends Framework\TestCase
         self::assertSame([], $releaseList->toArray());
     }
 
-    public function testCreateRejectsReleasesWithDuplicateVersions(): void
+    public function testCreateRejectsReleasesWithDuplicateTags(): void
     {
         $faker = self::faker();
 
-        $version = Version\Version::fromString(self::faker()->semver());
+        $tag = Tag::fromString(self::faker()->semver());
 
-        $values = \array_map(static function () use ($version): Release {
+        $values = \array_map(static function () use ($tag): Release {
             return Release::create(
-                $version,
+                $tag,
                 Changes::empty(),
             );
         }, \range(0, 4));
@@ -71,7 +72,7 @@ final class ReleaseListTest extends Framework\TestCase
 
         $values = \array_map(static function () use ($faker): Release {
             return Release::create(
-                Version\Version::fromString($faker->semver()),
+                Tag::fromString($faker->semver()),
                 Changes::empty(),
             );
         }, \range(0, 4));
@@ -81,7 +82,7 @@ final class ReleaseListTest extends Framework\TestCase
         $sorted = $values;
 
         \usort($sorted, static function (Release $a, Release $b): int {
-            return $a->version()->compare($b->version());
+            return $a->tag()->compare($b->tag());
         });
 
         self::assertSame($sorted, $releaseList->toArray());
