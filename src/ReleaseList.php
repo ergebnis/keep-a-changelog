@@ -87,6 +87,15 @@ final class ReleaseList
         return $this->values[0];
     }
 
+    public function last(): ?Release
+    {
+        if ([] === $this->values) {
+            return null;
+        }
+
+        return $this->values[\count($this->values) - 1];
+    }
+
     public function sortedByTagDescending(): self
     {
         $sorted = $this->values;

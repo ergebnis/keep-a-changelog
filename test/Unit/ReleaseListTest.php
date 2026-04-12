@@ -107,6 +107,31 @@ final class ReleaseListTest extends Framework\TestCase
         self::assertSame($first, $releaseList->first());
     }
 
+    public function testLastReturnsNullWhenReleaseListIsEmpty(): void
+    {
+        $releaseList = ReleaseList::empty();
+
+        self::assertNull($releaseList->last());
+    }
+
+    public function testLastReturnsReleaseWhenReleaseListIsNotEmpty(): void
+    {
+        $faker = self::faker()->unique();
+
+        $values = \array_map(static function () use ($faker): Release {
+            return Release::create(
+                Tag::fromString($faker->semver()),
+                Changes::empty(),
+            );
+        }, \range(0, 4));
+
+        $releaseList = ReleaseList::create(...$values);
+
+        $last = \end($values);
+
+        self::assertSame($last, $releaseList->last());
+    }
+
     public function testSortedByTagAscendingReturnsReleaseListWithReleasesSortedByTagAscending(): void
     {
         $faker = self::faker()->unique();
