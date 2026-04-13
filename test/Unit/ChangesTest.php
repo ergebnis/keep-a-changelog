@@ -123,4 +123,149 @@ final class ChangesTest extends Framework\TestCase
         self::assertSame($fixed, $changes->fixed());
         self::assertSame($security, $changes->security());
     }
+
+    public function testIsEmptyReturnsFalseWhenChangesHasAdded(): void
+    {
+        $faker = self::faker();
+
+        $changes = Changes::create(
+            EntryList::create(...\array_map(static function () use ($faker): Entry {
+                return Entry::create(
+                    Description::fromString($faker->sentence()),
+                    PullRequest::fromInt($faker->numberBetween(1)),
+                    Author::fromString($faker->slug(2)),
+                    Notes::fromString($faker->realText()),
+                );
+            }, \range(0, 4))),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+        );
+
+        self::assertFalse($changes->isEmpty());
+    }
+
+    public function testIsEmptyReturnsFalseWhenChangesHasChanged(): void
+    {
+        $faker = self::faker();
+
+        $changes = Changes::create(
+            EntryList::empty(),
+            EntryList::create(...\array_map(static function () use ($faker): Entry {
+                return Entry::create(
+                    Description::fromString($faker->sentence()),
+                    PullRequest::fromInt($faker->numberBetween(1)),
+                    Author::fromString($faker->slug(2)),
+                    Notes::fromString($faker->realText()),
+                );
+            }, \range(0, 4))),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+        );
+
+        self::assertFalse($changes->isEmpty());
+    }
+
+    public function testIsEmptyReturnsFalseWhenChangesHasDeprecated(): void
+    {
+        $faker = self::faker();
+
+        $changes = Changes::create(
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::create(...\array_map(static function () use ($faker): Entry {
+                return Entry::create(
+                    Description::fromString($faker->sentence()),
+                    PullRequest::fromInt($faker->numberBetween(1)),
+                    Author::fromString($faker->slug(2)),
+                    Notes::fromString($faker->realText()),
+                );
+            }, \range(0, 4))),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+        );
+
+        self::assertFalse($changes->isEmpty());
+    }
+
+    public function testIsEmptyReturnsFalseWhenChangesHasFixed(): void
+    {
+        $faker = self::faker();
+
+        $changes = Changes::create(
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::create(...\array_map(static function () use ($faker): Entry {
+                return Entry::create(
+                    Description::fromString($faker->sentence()),
+                    PullRequest::fromInt($faker->numberBetween(1)),
+                    Author::fromString($faker->slug(2)),
+                    Notes::fromString($faker->realText()),
+                );
+            }, \range(0, 4))),
+            EntryList::empty(),
+            EntryList::empty(),
+        );
+
+        self::assertFalse($changes->isEmpty());
+    }
+
+    public function testIsEmptyReturnsFalseWhenChangesHasRemoved(): void
+    {
+        $faker = self::faker();
+
+        $changes = Changes::create(
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::create(...\array_map(static function () use ($faker): Entry {
+                return Entry::create(
+                    Description::fromString($faker->sentence()),
+                    PullRequest::fromInt($faker->numberBetween(1)),
+                    Author::fromString($faker->slug(2)),
+                    Notes::fromString($faker->realText()),
+                );
+            }, \range(0, 4))),
+            EntryList::empty(),
+        );
+
+        self::assertFalse($changes->isEmpty());
+    }
+
+    public function testIsEmptyReturnsFalseWhenChangesHasSecurity(): void
+    {
+        $faker = self::faker();
+
+        $changes = Changes::create(
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::empty(),
+            EntryList::create(...\array_map(static function () use ($faker): Entry {
+                return Entry::create(
+                    Description::fromString($faker->sentence()),
+                    PullRequest::fromInt($faker->numberBetween(1)),
+                    Author::fromString($faker->slug(2)),
+                    Notes::fromString($faker->realText()),
+                );
+            }, \range(0, 4))),
+        );
+
+        self::assertFalse($changes->isEmpty());
+    }
+
+    public function testIsEmptyReturnsTrueWhenAllEntryListsAreEmpty(): void
+    {
+        $changes = Changes::empty();
+
+        self::assertTrue($changes->isEmpty());
+    }
 }

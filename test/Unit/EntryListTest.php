@@ -94,4 +94,27 @@ final class EntryListTest extends Framework\TestCase
 
         self::assertEquals(EntryList::create(...$sorted), $mutated);
     }
+
+    public function testIsEmptyReturnsTrueWhenEntryListIsEmpty(): void
+    {
+        $entryList = EntryList::empty();
+
+        self::assertTrue($entryList->isEmpty());
+    }
+
+    public function testIsEmptyReturnsFalseWhenEntryListIsNotEmpty(): void
+    {
+        $faker = self::faker();
+
+        $entryList = EntryList::create(...\array_map(static function () use ($faker): Entry {
+            return Entry::create(
+                Description::fromString($faker->sentence()),
+                PullRequest::fromInt($faker->numberBetween(1)),
+                Author::fromString($faker->slug(2)),
+                Notes::fromString($faker->realText()),
+            );
+        }, \range(0, 4)));
+
+        self::assertFalse($entryList->isEmpty());
+    }
 }

@@ -27,6 +27,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `Release` ([#288]), by [@localheinz]
 - Added `ReleaseList` ([#289]), by [@localheinz]
 - Added `Changelog` ([#290]), by [@localheinz]
+- Added `MarkdownRenderer` ([#291]), by [@localheinz]
 - Added `Tag` ([#292]), by [@localheinz]
 - Added `Reference` ([#293]), by [@localheinz]
 - Added `ReleaseList::first()` ([#297]), by [@localheinz]
@@ -57,6 +58,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#288]: https://github.com/ergebnis/keep-a-changelog/pull/288
 [#289]: https://github.com/ergebnis/keep-a-changelog/pull/289
 [#290]: https://github.com/ergebnis/keep-a-changelog/pull/290
+[#291]: https://github.com/ergebnis/keep-a-changelog/pull/291
 [#292]: https://github.com/ergebnis/keep-a-changelog/pull/292
 [#293]: https://github.com/ergebnis/keep-a-changelog/pull/293
 [#294]: https://github.com/ergebnis/keep-a-changelog/pull/294
