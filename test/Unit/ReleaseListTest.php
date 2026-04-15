@@ -19,6 +19,7 @@ use Ergebnis\KeepAChangelog\Release;
 use Ergebnis\KeepAChangelog\ReleaseList;
 use Ergebnis\KeepAChangelog\Tag;
 use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog\UnknownRelease;
 use PHPUnit\Framework;
 
 /**
@@ -29,6 +30,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\KeepAChangelog\InvalidReleaseList
  * @uses \Ergebnis\KeepAChangelog\Release
  * @uses \Ergebnis\KeepAChangelog\Tag
+ * @uses \Ergebnis\KeepAChangelog\UnknownRelease
  */
 final class ReleaseListTest extends Framework\TestCase
 {
@@ -130,6 +132,133 @@ final class ReleaseListTest extends Framework\TestCase
         $last = \end($values);
 
         self::assertSame($last, $releaseList->last());
+    }
+
+    public function testReleaseForReturnsNullWhenReleaseListIsEmpty(): void
+    {
+        $tag = Tag::fromString(self::faker()->semver());
+
+        $releaseList = ReleaseList::empty();
+
+        self::assertNull($releaseList->releaseFor($tag));
+    }
+
+    public function testReleaseForReturnsNullWhenReleaseListDoesHaveReleaseWithTag(): void
+    {
+        $faker = self::faker()->unique();
+
+        $values = \array_map(static function () use ($faker): Release {
+            return Release::create(
+                Tag::fromString($faker->semver()),
+                Changes::empty(),
+            );
+        }, \range(0, 4));
+
+        $tag = Tag::fromString($faker->semver());
+
+        $releaseList = ReleaseList::create(...$values);
+
+        self::assertNull($releaseList->releaseFor($tag));
+    }
+
+    public function testReleaseForReturnsReleaseWhenReleaseListHasReleaseWithTag(): void
+    {
+        $faker = self::faker()->unique();
+
+        $values = \array_map(static function () use ($faker): Release {
+            return Release::create(
+                Tag::fromString($faker->semver()),
+                Changes::empty(),
+            );
+        }, \range(0, 4));
+
+        /** @var Release $value */
+        $value = $faker->randomElement($values);
+
+        $releaseList = ReleaseList::create(...$values);
+
+        self::assertSame($value, $releaseList->releaseFor($value->tag()));
+    }
+
+    public function testPreviousReleaseForRejectsTagWhenReleaseListIsEmpty(): void
+    {
+        $tag = Tag::fromString(self::faker()->semver());
+
+        $releaseList = ReleaseList::empty();
+
+        $this->expectException(UnknownRelease::class);
+
+        $releaseList->previousReleaseFor($tag);
+    }
+
+    public function testPreviousReleaseForRejectsTageWhenReleaseListDoesNotHaveReleaseWithTag(): void
+    {
+        $faker = self::faker()->unique();
+
+        $values = \array_map(static function () use ($faker): Release {
+            return Release::create(
+                Tag::fromString($faker->semver()),
+                Changes::empty(),
+            );
+        }, \range(0, 4));
+
+        $tag = Tag::fromString($faker->semver());
+
+        $releaseList = ReleaseList::create(...$values);
+
+        $this->expectException(UnknownRelease::class);
+
+        $releaseList->previousReleaseFor($tag);
+    }
+
+    public function testPreviousReleaseForReturnsNullWhenReleaseListHasReleaseWithTagAndTagIsEarliest(): void
+    {
+        $values = [
+            Release::create(
+                Tag::fromString('3.0.0'),
+                Changes::empty(),
+            ),
+            Release::create(
+                Tag::fromString('1.0.0'),
+                Changes::empty(),
+            ),
+            Release::create(
+                Tag::fromString('2.0.0'),
+                Changes::empty(),
+            ),
+        ];
+
+        $tag = Tag::fromString('1.0.0');
+
+        $releaseList = ReleaseList::create(...$values);
+
+        self::assertNull($releaseList->previousReleaseFor($tag));
+    }
+
+    public function testPreviousReleaseForReturnsPreviousReleaseWhenReleaseListHasReleaseWithPreviousRelease(): void
+    {
+        $previousRelease = Release::create(
+            Tag::fromString('1.0.0'),
+            Changes::empty(),
+        );
+
+        $values = [
+            Release::create(
+                Tag::fromString('3.0.0'),
+                Changes::empty(),
+            ),
+            $previousRelease,
+            Release::create(
+                Tag::fromString('2.0.0'),
+                Changes::empty(),
+            ),
+        ];
+
+        $tag = Tag::fromString('2.0.0');
+
+        $releaseList = ReleaseList::create(...$values);
+
+        self::assertSame($previousRelease, $releaseList->previousReleaseFor($tag));
     }
 
     public function testSortedByTagAscendingReturnsReleaseListWithReleasesSortedByTagAscending(): void

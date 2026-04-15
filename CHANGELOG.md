@@ -32,6 +32,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `Reference` ([#293]), by [@localheinz]
 - Added `ReleaseList::first()` ([#297]), by [@localheinz]
 - Added `ReleaseList::last()` ([#298]), by [@localheinz]
+- Added `MarkdownRenderer::renderRelease()` ([#303]), by [@localheinz]
 
 ### Changed
 
@@ -66,5 +67,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#296]: https://github.com/ergebnis/keep-a-changelog/pull/296
 [#297]: https://github.com/ergebnis/keep-a-changelog/pull/297
 [#298]: https://github.com/ergebnis/keep-a-changelog/pull/298
+[#303]: https://github.com/ergebnis/keep-a-changelog/pull/303
 
 [@localheinz]: https://github.com/localheinz

@@ -47,4 +47,9 @@ final class Tag implements Reference
     {
         return $this->version->compare($other->version);
     }
+
+    public function equals(self $other): bool
+    {
+        return $this->version->equals($other->version);
+    }
 }

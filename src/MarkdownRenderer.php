@@ -32,6 +32,51 @@ final class MarkdownRenderer
         return $this->markdownBuffer->flush();
     }
 
+    /**
+     * @throws UnknownRelease
+     */
+    public function renderRelease(
+        Changelog $changelog,
+        Tag $tag
+    ): string {
+        $previousReference = $changelog->repository()->initialCommit();
+
+        $release = $changelog->releases()->releaseFor($tag);
+
+        if (!$release instanceof Release) {
+            throw UnknownRelease::named($tag);
+        }
+
+        $previousRelease = $changelog->releases()->previousReleaseFor($tag);
+
+        if ($previousRelease instanceof Release) {
+            $previousReference = $previousRelease->tag();
+        }
+
+        if ($previousReference instanceof Reference) {
+            $this->markdownBuffer->append(
+                self::forAFullDiffSee(
+                    $changelog->repository(),
+                    $previousReference,
+                    $release->tag(),
+                ),
+                '',
+            );
+        }
+
+        if (!$release->changes()->isEmpty()) {
+            $this->appendChanges(
+                $changelog->repository(),
+                $release->changes(),
+                2,
+            );
+        }
+
+        $this->appendFooter();
+
+        return $this->markdownBuffer->flush();
+    }
+
     private function appendHeader(): void
     {
         $this->markdownBuffer->append(
@@ -76,29 +121,27 @@ final class MarkdownRenderer
         $this->appendChanges(
             $changelog->repository(),
             $changelog->unreleased()->changes(),
+            3,
         );
     }
 
     private function appendReleases(Changelog $changelog): void
     {
-        $previousReference = $changelog->repository()->initialCommit();
+        $initialCommit = $changelog->repository()->initialCommit();
 
-        $releases = [];
+        foreach ($changelog->releases()->sortedByTagDescending()->toArray() as $release) {
+            $previousReference = $initialCommit;
 
-        foreach ($changelog->releases()->sortedByTagAscending()->toArray() as $release) {
-            $releases[] = [
-                'previousReference' => $previousReference,
-                'release' => $release,
-            ];
+            $previousRelease = $changelog->releases()->previousReleaseFor($release->tag());
 
-            $previousReference = $release->tag();
-        }
+            if ($previousRelease instanceof Release) {
+                $previousReference = $previousRelease->tag();
+            }
 
-        foreach (\array_reverse($releases) as $item) {
             $this->appendRelease(
                 $changelog->repository(),
-                $item['previousReference'],
-                $item['release'],
+                $previousReference,
+                $release,
             );
         }
     }
@@ -138,12 +181,14 @@ final class MarkdownRenderer
         $this->appendChanges(
             $repository,
             $release->changes(),
+            3,
         );
     }
 
     private function appendChanges(
         Repository $repository,
-        Changes $changes
+        Changes $changes,
+        int $sectionHeadingLevel
     ): void {
         /** @var array<string, EntryList> $sections */
         $sections = [
@@ -162,7 +207,11 @@ final class MarkdownRenderer
 
             $this->markdownBuffer->append(
                 \sprintf(
-                    '### %s',
+                    '%s %s',
+                    \str_repeat(
+                        '#',
+                        $sectionHeadingLevel,
+                    ),
                     $sectionName,
                 ),
                 '',

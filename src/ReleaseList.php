@@ -67,6 +67,37 @@ final class ReleaseList
         return $this->values;
     }
 
+    public function releaseFor(Tag $tag): ?Release
+    {
+        foreach ($this->values as $value) {
+            if ($value->tag()->equals($tag)) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @throws UnknownRelease
+     */
+    public function previousReleaseFor(Tag $tag): ?Release
+    {
+        $previousRelease = null;
+
+        foreach ($this->sortedByTagAscending()->toArray() as $value) {
+            if (!$value->tag()->equals($tag)) {
+                $previousRelease = $value;
+
+                continue;
+            }
+
+            return $previousRelease;
+        }
+
+        throw UnknownRelease::named($tag);
+    }
+
     public function sortedByTagAscending(): self
     {
         $sorted = $this->values;
