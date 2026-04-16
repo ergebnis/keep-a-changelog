@@ -88,4 +88,20 @@ final class TagTest extends Framework\TestCase
 
         self::assertSame(1, $one->compare($two));
     }
+
+    public function testEqualsReturnsFalseWhenTagsAreNotEqual(): void
+    {
+        $one = Tag::fromString('1.0.0');
+        $two = Tag::fromString('2.0.0');
+
+        self::assertFalse($one->equals($two));
+    }
+
+    public function testEqualsReturnsTrueWhenTagsAreEqual(): void
+    {
+        $one = Tag::fromString('1.0.0');
+        $two = Tag::fromString('1.0.0');
+
+        self::assertTrue($one->equals($two));
+    }
 }
