@@ -10,7 +10,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/ergebnis/keep-a-changelog/v/stable)](https://packagist.org/packages/ergebnis/keep-a-changelog)
 [![Total Downloads](https://poser.pugx.org/ergebnis/keep-a-changelog/downloads)](https://packagist.org/packages/ergebnis/keep-a-changelog)
-[![Monthly Downloads](http://poser.pugx.org/ergebnis/keep-a-changelog/d/monthly)](https://packagist.org/packages/ergebnis/keep-a-changelog)
+[![Monthly Downloads](https://poser.pugx.org/ergebnis/keep-a-changelog/d/monthly)](https://packagist.org/packages/ergebnis/keep-a-changelog)
 
 This project provides a [`composer`](https://getcomposer.org) package with tools for [keeping a changelog](https://keepachangelog.com).
 
