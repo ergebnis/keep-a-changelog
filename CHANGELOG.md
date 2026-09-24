@@ -39,6 +39,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `EntryList::sortedByPullRequestAscending()` ([#294]), by [@localheinz]
 - Added `ReleaseList::sortedByTagAscending()` ([#295]), by [@localheinz]
 - Added `ReleaseList::sortedByTagDescending()` ([#296]), by [@localheinz]
+- Allowed installation on PHP 8.6 ([#407]), by [@localheinz]
 
 [88cf670...main]: https://github.com/ergebnis/keep-a-changelog/compare/88cf670...main
 
@@ -68,5 +69,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#297]: https://github.com/ergebnis/keep-a-changelog/pull/297
 [#298]: https://github.com/ergebnis/keep-a-changelog/pull/298
 [#303]: https://github.com/ergebnis/keep-a-changelog/pull/303
+[#407]: https://github.com/ergebnis/keep-a-changelog/pull/407
 
 [@localheinz]: https://github.com/localheinz
