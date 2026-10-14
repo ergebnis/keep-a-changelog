@@ -19,6 +19,12 @@ parameters:
 			path: src/Entry.php
 
 		-
+			message: '#^Parameter \#1 \$values of class Ergebnis\\KeepAChangelog\\EntryList constructor expects list\<Ergebnis\\KeepAChangelog\\Entry\>, array\<int\<0, max\>\|string, Ergebnis\\KeepAChangelog\\Entry\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntryList.php
+
+		-
 			message: '#^Method Ergebnis\\KeepAChangelog\\MarkdownRenderer\:\:appendRelease\(\) has parameter \$previousReference with a nullable type declaration\.$#'
 			identifier: ergebnis.noParameterWithNullableTypeDeclaration
 			count: 1
@@ -45,6 +51,12 @@ parameters:
 		-
 			message: '#^Method Ergebnis\\KeepAChangelog\\ReleaseList\:\:releaseFor\(\) has a nullable return type declaration\.$#'
 			identifier: ergebnis.noNullableReturnTypeDeclaration
+			count: 1
+			path: src/ReleaseList.php
+
+		-
+			message: '#^Parameter \#1 \$values of class Ergebnis\\KeepAChangelog\\ReleaseList constructor expects list\<Ergebnis\\KeepAChangelog\\Release\>, array\<int\<0, max\>\|string, Ergebnis\\KeepAChangelog\\Release\> given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/ReleaseList.php
 
