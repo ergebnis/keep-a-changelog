@@ -33,6 +33,7 @@ For a full diff see [`88cf670...main`][88cf670...main].
 - Added `ReleaseList::first()` ([#297]), by [@localheinz]
 - Added `ReleaseList::last()` ([#298]), by [@localheinz]
 - Added `MarkdownRenderer::renderRelease()` ([#303]), by [@localheinz]
+- Added support for PHP 8.6 ([#455]), by [@localheinz]
 
 ### Changed
 
@@ -70,5 +71,6 @@ For a full diff see [`88cf670...main`][88cf670...main].
 [#298]: https://github.com/ergebnis/keep-a-changelog/pull/298
 [#303]: https://github.com/ergebnis/keep-a-changelog/pull/303
 [#407]: https://github.com/ergebnis/keep-a-changelog/pull/407
+[#455]: https://github.com/ergebnis/keep-a-changelog/pull/455
 
 [@localheinz]: https://github.com/localheinz
