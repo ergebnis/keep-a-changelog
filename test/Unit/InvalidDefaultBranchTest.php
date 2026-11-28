@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidDefaultBranch;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -22,13 +21,13 @@ use PHPUnit\Framework;
  */
 final class InvalidDefaultBranchTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testNamedReturnsException(): void
     {
         $value = self::faker()->word();
 
-        $exception = InvalidDefaultBranch::named($value);
+        $exception = KeepAChangelog\InvalidDefaultBranch::named($value);
 
         $expected = \sprintf(
             'Value "%s" is not a valid default branch.',

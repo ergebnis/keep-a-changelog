@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidNotes;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -22,13 +21,13 @@ use PHPUnit\Framework;
  */
 final class InvalidNotesTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testFromReturnsException(): void
     {
         $value = self::faker()->sentence();
 
-        $exception = InvalidNotes::from($value);
+        $exception = KeepAChangelog\InvalidNotes::from($value);
 
         $expected = \sprintf(
             'Value "%s" is not valid notes.',

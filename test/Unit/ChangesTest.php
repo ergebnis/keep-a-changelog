@@ -13,14 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Author;
-use Ergebnis\KeepAChangelog\Changes;
-use Ergebnis\KeepAChangelog\Description;
-use Ergebnis\KeepAChangelog\Entry;
-use Ergebnis\KeepAChangelog\EntryList;
-use Ergebnis\KeepAChangelog\Notes;
-use Ergebnis\KeepAChangelog\PullRequest;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -35,79 +28,79 @@ use PHPUnit\Framework;
  */
 final class ChangesTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testEmptyReturnsChanges(): void
     {
-        $changes = Changes::empty();
+        $changes = KeepAChangelog\Changes::empty();
 
-        self::assertEquals(EntryList::empty(), $changes->added());
-        self::assertEquals(EntryList::empty(), $changes->changed());
-        self::assertEquals(EntryList::empty(), $changes->deprecated());
-        self::assertEquals(EntryList::empty(), $changes->removed());
-        self::assertEquals(EntryList::empty(), $changes->fixed());
-        self::assertEquals(EntryList::empty(), $changes->security());
+        self::assertEquals(KeepAChangelog\EntryList::empty(), $changes->added());
+        self::assertEquals(KeepAChangelog\EntryList::empty(), $changes->changed());
+        self::assertEquals(KeepAChangelog\EntryList::empty(), $changes->deprecated());
+        self::assertEquals(KeepAChangelog\EntryList::empty(), $changes->removed());
+        self::assertEquals(KeepAChangelog\EntryList::empty(), $changes->fixed());
+        self::assertEquals(KeepAChangelog\EntryList::empty(), $changes->security());
     }
 
     public function testCreateReturnsChanges(): void
     {
         $faker = self::faker();
 
-        $added = EntryList::create(...\array_map(static function () use ($faker): Entry {
-            return Entry::create(
-                Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString($faker->slug(2)),
-                Notes::fromString($faker->realText()),
+        $added = KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+            return KeepAChangelog\Entry::create(
+                KeepAChangelog\Description::fromString($faker->sentence()),
+                KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                KeepAChangelog\Author::fromString($faker->slug(2)),
+                KeepAChangelog\Notes::fromString($faker->realText()),
             );
         }, \range(0, 4)));
 
-        $changed = EntryList::create(...\array_map(static function () use ($faker): Entry {
-            return Entry::create(
-                Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString($faker->slug(2)),
-                Notes::fromString($faker->realText()),
+        $changed = KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+            return KeepAChangelog\Entry::create(
+                KeepAChangelog\Description::fromString($faker->sentence()),
+                KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                KeepAChangelog\Author::fromString($faker->slug(2)),
+                KeepAChangelog\Notes::fromString($faker->realText()),
             );
         }, \range(0, 4)));
 
-        $deprecated = EntryList::create(...\array_map(static function () use ($faker): Entry {
-            return Entry::create(
-                Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString($faker->slug(2)),
-                Notes::fromString($faker->realText()),
+        $deprecated = KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+            return KeepAChangelog\Entry::create(
+                KeepAChangelog\Description::fromString($faker->sentence()),
+                KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                KeepAChangelog\Author::fromString($faker->slug(2)),
+                KeepAChangelog\Notes::fromString($faker->realText()),
             );
         }, \range(0, 4)));
 
-        $removed = EntryList::create(...\array_map(static function () use ($faker): Entry {
-            return Entry::create(
-                Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString($faker->slug(2)),
-                Notes::fromString($faker->realText()),
+        $removed = KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+            return KeepAChangelog\Entry::create(
+                KeepAChangelog\Description::fromString($faker->sentence()),
+                KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                KeepAChangelog\Author::fromString($faker->slug(2)),
+                KeepAChangelog\Notes::fromString($faker->realText()),
             );
         }, \range(0, 4)));
 
-        $fixed = EntryList::create(...\array_map(static function () use ($faker): Entry {
-            return Entry::create(
-                Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString($faker->slug(2)),
-                Notes::fromString($faker->realText()),
+        $fixed = KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+            return KeepAChangelog\Entry::create(
+                KeepAChangelog\Description::fromString($faker->sentence()),
+                KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                KeepAChangelog\Author::fromString($faker->slug(2)),
+                KeepAChangelog\Notes::fromString($faker->realText()),
             );
         }, \range(0, 4)));
 
-        $security = EntryList::create(...\array_map(static function () use ($faker): Entry {
-            return Entry::create(
-                Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString($faker->slug(2)),
-                Notes::fromString($faker->realText()),
+        $security = KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+            return KeepAChangelog\Entry::create(
+                KeepAChangelog\Description::fromString($faker->sentence()),
+                KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                KeepAChangelog\Author::fromString($faker->slug(2)),
+                KeepAChangelog\Notes::fromString($faker->realText()),
             );
         }, \range(0, 4)));
 
-        $changes = Changes::create(
+        $changes = KeepAChangelog\Changes::create(
             $added,
             $changed,
             $deprecated,
@@ -128,20 +121,20 @@ final class ChangesTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $changes = Changes::create(
-            EntryList::create(...\array_map(static function () use ($faker): Entry {
-                return Entry::create(
-                    Description::fromString($faker->sentence()),
-                    PullRequest::fromInt($faker->numberBetween(1)),
-                    Author::fromString($faker->slug(2)),
-                    Notes::fromString($faker->realText()),
+        $changes = KeepAChangelog\Changes::create(
+            KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+                return KeepAChangelog\Entry::create(
+                    KeepAChangelog\Description::fromString($faker->sentence()),
+                    KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                    KeepAChangelog\Author::fromString($faker->slug(2)),
+                    KeepAChangelog\Notes::fromString($faker->realText()),
                 );
             }, \range(0, 4))),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
         );
 
         self::assertFalse($changes->isEmpty());
@@ -151,20 +144,20 @@ final class ChangesTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $changes = Changes::create(
-            EntryList::empty(),
-            EntryList::create(...\array_map(static function () use ($faker): Entry {
-                return Entry::create(
-                    Description::fromString($faker->sentence()),
-                    PullRequest::fromInt($faker->numberBetween(1)),
-                    Author::fromString($faker->slug(2)),
-                    Notes::fromString($faker->realText()),
+        $changes = KeepAChangelog\Changes::create(
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+                return KeepAChangelog\Entry::create(
+                    KeepAChangelog\Description::fromString($faker->sentence()),
+                    KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                    KeepAChangelog\Author::fromString($faker->slug(2)),
+                    KeepAChangelog\Notes::fromString($faker->realText()),
                 );
             }, \range(0, 4))),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
         );
 
         self::assertFalse($changes->isEmpty());
@@ -174,20 +167,20 @@ final class ChangesTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $changes = Changes::create(
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::create(...\array_map(static function () use ($faker): Entry {
-                return Entry::create(
-                    Description::fromString($faker->sentence()),
-                    PullRequest::fromInt($faker->numberBetween(1)),
-                    Author::fromString($faker->slug(2)),
-                    Notes::fromString($faker->realText()),
+        $changes = KeepAChangelog\Changes::create(
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+                return KeepAChangelog\Entry::create(
+                    KeepAChangelog\Description::fromString($faker->sentence()),
+                    KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                    KeepAChangelog\Author::fromString($faker->slug(2)),
+                    KeepAChangelog\Notes::fromString($faker->realText()),
                 );
             }, \range(0, 4))),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
         );
 
         self::assertFalse($changes->isEmpty());
@@ -197,20 +190,20 @@ final class ChangesTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $changes = Changes::create(
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::create(...\array_map(static function () use ($faker): Entry {
-                return Entry::create(
-                    Description::fromString($faker->sentence()),
-                    PullRequest::fromInt($faker->numberBetween(1)),
-                    Author::fromString($faker->slug(2)),
-                    Notes::fromString($faker->realText()),
+        $changes = KeepAChangelog\Changes::create(
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+                return KeepAChangelog\Entry::create(
+                    KeepAChangelog\Description::fromString($faker->sentence()),
+                    KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                    KeepAChangelog\Author::fromString($faker->slug(2)),
+                    KeepAChangelog\Notes::fromString($faker->realText()),
                 );
             }, \range(0, 4))),
-            EntryList::empty(),
-            EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
         );
 
         self::assertFalse($changes->isEmpty());
@@ -220,20 +213,20 @@ final class ChangesTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $changes = Changes::create(
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::create(...\array_map(static function () use ($faker): Entry {
-                return Entry::create(
-                    Description::fromString($faker->sentence()),
-                    PullRequest::fromInt($faker->numberBetween(1)),
-                    Author::fromString($faker->slug(2)),
-                    Notes::fromString($faker->realText()),
+        $changes = KeepAChangelog\Changes::create(
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+                return KeepAChangelog\Entry::create(
+                    KeepAChangelog\Description::fromString($faker->sentence()),
+                    KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                    KeepAChangelog\Author::fromString($faker->slug(2)),
+                    KeepAChangelog\Notes::fromString($faker->realText()),
                 );
             }, \range(0, 4))),
-            EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
         );
 
         self::assertFalse($changes->isEmpty());
@@ -243,18 +236,18 @@ final class ChangesTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $changes = Changes::create(
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::create(...\array_map(static function () use ($faker): Entry {
-                return Entry::create(
-                    Description::fromString($faker->sentence()),
-                    PullRequest::fromInt($faker->numberBetween(1)),
-                    Author::fromString($faker->slug(2)),
-                    Notes::fromString($faker->realText()),
+        $changes = KeepAChangelog\Changes::create(
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+                return KeepAChangelog\Entry::create(
+                    KeepAChangelog\Description::fromString($faker->sentence()),
+                    KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                    KeepAChangelog\Author::fromString($faker->slug(2)),
+                    KeepAChangelog\Notes::fromString($faker->realText()),
                 );
             }, \range(0, 4))),
         );
@@ -264,7 +257,7 @@ final class ChangesTest extends Framework\TestCase
 
     public function testIsEmptyReturnsTrueWhenAllEntryListsAreEmpty(): void
     {
-        $changes = Changes::empty();
+        $changes = KeepAChangelog\Changes::empty();
 
         self::assertTrue($changes->isEmpty());
     }

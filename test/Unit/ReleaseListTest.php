@@ -13,13 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Changes;
-use Ergebnis\KeepAChangelog\InvalidReleaseList;
-use Ergebnis\KeepAChangelog\Release;
-use Ergebnis\KeepAChangelog\ReleaseList;
-use Ergebnis\KeepAChangelog\Tag;
-use Ergebnis\KeepAChangelog\Test;
-use Ergebnis\KeepAChangelog\UnknownRelease;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -34,18 +28,18 @@ use PHPUnit\Framework;
  */
 final class ReleaseListTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testEmptyReturnsReleaseList(): void
     {
-        $releaseList = ReleaseList::empty();
+        $releaseList = KeepAChangelog\ReleaseList::empty();
 
         self::assertSame([], $releaseList->toArray());
     }
 
     public function testCreateReturnsRelease(): void
     {
-        $releaseList = ReleaseList::create();
+        $releaseList = KeepAChangelog\ReleaseList::create();
 
         self::assertSame([], $releaseList->toArray());
     }
@@ -54,39 +48,39 @@ final class ReleaseListTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $tag = Tag::fromString(self::faker()->semver());
+        $tag = KeepAChangelog\Tag::fromString(self::faker()->semver());
 
-        $values = \array_map(static function () use ($tag): Release {
-            return Release::create(
+        $values = \array_map(static function () use ($tag): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
                 $tag,
-                Changes::empty(),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        $this->expectException(InvalidReleaseList::class);
+        $this->expectException(KeepAChangelog\InvalidReleaseList::class);
 
-        ReleaseList::create(...$values);
+        KeepAChangelog\ReleaseList::create(...$values);
     }
 
     public function testCreateReturnsReleaseListWithReleases(): void
     {
         $faker = self::faker()->unique();
 
-        $values = \array_map(static function () use ($faker): Release {
-            return Release::create(
-                Tag::fromString($faker->semver()),
-                Changes::empty(),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($faker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         self::assertSame($values, $releaseList->toArray());
     }
 
     public function testFirstReturnsNullWhenReleaseListIsEmpty(): void
     {
-        $releaseList = ReleaseList::empty();
+        $releaseList = KeepAChangelog\ReleaseList::empty();
 
         self::assertNull($releaseList->first());
     }
@@ -95,14 +89,14 @@ final class ReleaseListTest extends Framework\TestCase
     {
         $faker = self::faker()->unique();
 
-        $values = \array_map(static function () use ($faker): Release {
-            return Release::create(
-                Tag::fromString($faker->semver()),
-                Changes::empty(),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($faker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         $first = \reset($values);
 
@@ -111,7 +105,7 @@ final class ReleaseListTest extends Framework\TestCase
 
     public function testLastReturnsNullWhenReleaseListIsEmpty(): void
     {
-        $releaseList = ReleaseList::empty();
+        $releaseList = KeepAChangelog\ReleaseList::empty();
 
         self::assertNull($releaseList->last());
     }
@@ -120,14 +114,14 @@ final class ReleaseListTest extends Framework\TestCase
     {
         $faker = self::faker()->unique();
 
-        $values = \array_map(static function () use ($faker): Release {
-            return Release::create(
-                Tag::fromString($faker->semver()),
-                Changes::empty(),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($faker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         $last = \end($values);
 
@@ -136,9 +130,9 @@ final class ReleaseListTest extends Framework\TestCase
 
     public function testReleaseForReturnsNullWhenReleaseListIsEmpty(): void
     {
-        $tag = Tag::fromString(self::faker()->semver());
+        $tag = KeepAChangelog\Tag::fromString(self::faker()->semver());
 
-        $releaseList = ReleaseList::empty();
+        $releaseList = KeepAChangelog\ReleaseList::empty();
 
         self::assertNull($releaseList->releaseFor($tag));
     }
@@ -147,16 +141,16 @@ final class ReleaseListTest extends Framework\TestCase
     {
         $faker = self::faker()->unique();
 
-        $values = \array_map(static function () use ($faker): Release {
-            return Release::create(
-                Tag::fromString($faker->semver()),
-                Changes::empty(),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($faker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        $tag = Tag::fromString($faker->semver());
+        $tag = KeepAChangelog\Tag::fromString($faker->semver());
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         self::assertNull($releaseList->releaseFor($tag));
     }
@@ -165,28 +159,28 @@ final class ReleaseListTest extends Framework\TestCase
     {
         $faker = self::faker()->unique();
 
-        $values = \array_map(static function () use ($faker): Release {
-            return Release::create(
-                Tag::fromString($faker->semver()),
-                Changes::empty(),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($faker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        /** @var Release $value */
+        /** @var KeepAChangelog\Release $value */
         $value = $faker->randomElement($values);
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         self::assertSame($value, $releaseList->releaseFor($value->tag()));
     }
 
     public function testPreviousReleaseForRejectsTagWhenReleaseListIsEmpty(): void
     {
-        $tag = Tag::fromString(self::faker()->semver());
+        $tag = KeepAChangelog\Tag::fromString(self::faker()->semver());
 
-        $releaseList = ReleaseList::empty();
+        $releaseList = KeepAChangelog\ReleaseList::empty();
 
-        $this->expectException(UnknownRelease::class);
+        $this->expectException(KeepAChangelog\UnknownRelease::class);
 
         $releaseList->previousReleaseFor($tag);
     }
@@ -195,18 +189,18 @@ final class ReleaseListTest extends Framework\TestCase
     {
         $faker = self::faker()->unique();
 
-        $values = \array_map(static function () use ($faker): Release {
-            return Release::create(
-                Tag::fromString($faker->semver()),
-                Changes::empty(),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($faker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        $tag = Tag::fromString($faker->semver());
+        $tag = KeepAChangelog\Tag::fromString($faker->semver());
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
-        $this->expectException(UnknownRelease::class);
+        $this->expectException(KeepAChangelog\UnknownRelease::class);
 
         $releaseList->previousReleaseFor($tag);
     }
@@ -214,49 +208,49 @@ final class ReleaseListTest extends Framework\TestCase
     public function testPreviousReleaseForReturnsNullWhenReleaseListHasReleaseWithTagAndTagIsEarliest(): void
     {
         $values = [
-            Release::create(
-                Tag::fromString('3.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('3.0.0'),
+                KeepAChangelog\Changes::empty(),
             ),
-            Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::empty(),
             ),
-            Release::create(
-                Tag::fromString('2.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('2.0.0'),
+                KeepAChangelog\Changes::empty(),
             ),
         ];
 
-        $tag = Tag::fromString('1.0.0');
+        $tag = KeepAChangelog\Tag::fromString('1.0.0');
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         self::assertNull($releaseList->previousReleaseFor($tag));
     }
 
     public function testPreviousReleaseForReturnsPreviousReleaseWhenReleaseListHasReleaseWithPreviousRelease(): void
     {
-        $previousRelease = Release::create(
-            Tag::fromString('1.0.0'),
-            Changes::empty(),
+        $previousRelease = KeepAChangelog\Release::create(
+            KeepAChangelog\Tag::fromString('1.0.0'),
+            KeepAChangelog\Changes::empty(),
         );
 
         $values = [
-            Release::create(
-                Tag::fromString('3.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('3.0.0'),
+                KeepAChangelog\Changes::empty(),
             ),
             $previousRelease,
-            Release::create(
-                Tag::fromString('2.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('2.0.0'),
+                KeepAChangelog\Changes::empty(),
             ),
         ];
 
-        $tag = Tag::fromString('2.0.0');
+        $tag = KeepAChangelog\Tag::fromString('2.0.0');
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         self::assertSame($previousRelease, $releaseList->previousReleaseFor($tag));
     }
@@ -265,14 +259,14 @@ final class ReleaseListTest extends Framework\TestCase
     {
         $faker = self::faker()->unique();
 
-        $values = \array_map(static function () use ($faker): Release {
-            return Release::create(
-                Tag::fromString($faker->semver()),
-                Changes::empty(),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($faker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         $mutated = $releaseList->sortedByTagAscending();
 
@@ -280,25 +274,25 @@ final class ReleaseListTest extends Framework\TestCase
 
         $sorted = $values;
 
-        \usort($sorted, static function (Release $a, Release $b): int {
+        \usort($sorted, static function (KeepAChangelog\Release $a, KeepAChangelog\Release $b): int {
             return $a->tag()->compare($b->tag());
         });
 
-        self::assertEquals(ReleaseList::create(...$sorted), $mutated);
+        self::assertEquals(KeepAChangelog\ReleaseList::create(...$sorted), $mutated);
     }
 
     public function testSortedByTagDescendingReturnsReleaseListWithReleasesSortedByTagDescending(): void
     {
         $faker = self::faker()->unique();
 
-        $values = \array_map(static function () use ($faker): Release {
-            return Release::create(
-                Tag::fromString($faker->semver()),
-                Changes::empty(),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($faker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         $mutated = $releaseList->sortedByTagDescending();
 
@@ -306,32 +300,32 @@ final class ReleaseListTest extends Framework\TestCase
 
         $sorted = $values;
 
-        \usort($sorted, static function (Release $a, Release $b): int {
+        \usort($sorted, static function (KeepAChangelog\Release $a, KeepAChangelog\Release $b): int {
             return $b->tag()->compare($a->tag());
         });
 
-        self::assertEquals(ReleaseList::create(...$sorted), $mutated);
+        self::assertEquals(KeepAChangelog\ReleaseList::create(...$sorted), $mutated);
     }
 
     public function testIsEmptyReturnsFalseWhenReleaseListIsNotEmpty(): void
     {
         $faker = self::faker()->unique();
 
-        $values = \array_map(static function () use ($faker): Release {
-            return Release::create(
-                Tag::fromString($faker->semver()),
-                Changes::empty(),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($faker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 4));
 
-        $releaseList = ReleaseList::create(...$values);
+        $releaseList = KeepAChangelog\ReleaseList::create(...$values);
 
         self::assertFalse($releaseList->isEmpty());
     }
 
     public function testIsEmptyReturnsRTrueWhenReleaseListIsEmpty(): void
     {
-        $releaseList = ReleaseList::empty();
+        $releaseList = KeepAChangelog\ReleaseList::empty();
 
         self::assertTrue($releaseList->isEmpty());
     }

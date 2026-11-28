@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidInitialCommit;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -22,13 +21,13 @@ use PHPUnit\Framework;
  */
 final class InvalidInitialCommitTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testFromReturnsException(): void
     {
         $value = self::faker()->word();
 
-        $exception = InvalidInitialCommit::from($value);
+        $exception = KeepAChangelog\InvalidInitialCommit::from($value);
 
         $expected = \sprintf(
             'Value "%s" is not a valid initial commit.',

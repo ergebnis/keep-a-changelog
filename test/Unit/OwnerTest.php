@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidOwner;
-use Ergebnis\KeepAChangelog\Owner;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -29,9 +28,9 @@ final class OwnerTest extends Framework\TestCase
      */
     public function testFromStringRejectsInvalidValue(string $value): void
     {
-        $this->expectException(InvalidOwner::class);
+        $this->expectException(KeepAChangelog\InvalidOwner::class);
 
-        Owner::fromString($value);
+        KeepAChangelog\Owner::fromString($value);
     }
 
     /**
@@ -65,7 +64,7 @@ final class OwnerTest extends Framework\TestCase
      */
     public function testFromStringReturnsOwner(string $value): void
     {
-        $owner = Owner::fromString($value);
+        $owner = KeepAChangelog\Owner::fromString($value);
 
         self::assertSame($value, $owner->toString());
     }

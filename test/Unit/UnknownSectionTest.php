@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Test;
-use Ergebnis\KeepAChangelog\UnknownSection;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -22,13 +21,13 @@ use PHPUnit\Framework;
  */
 final class UnknownSectionTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testNamedReturnsException(): void
     {
         $value = self::faker()->word();
 
-        $exception = UnknownSection::named($value);
+        $exception = KeepAChangelog\UnknownSection::named($value);
 
         $expected = \sprintf(
             'Value "%s" does not refer to a known section.',

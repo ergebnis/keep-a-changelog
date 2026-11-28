@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidName;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -22,13 +21,13 @@ use PHPUnit\Framework;
  */
 final class InvalidNameTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testNamedReturnsException(): void
     {
         $value = self::faker()->word();
 
-        $exception = InvalidName::named($value);
+        $exception = KeepAChangelog\InvalidName::named($value);
 
         $expected = \sprintf(
             'Value "%s" is not a valid repository name.',

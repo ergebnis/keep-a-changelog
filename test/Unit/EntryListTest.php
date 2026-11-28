@@ -13,13 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Author;
-use Ergebnis\KeepAChangelog\Description;
-use Ergebnis\KeepAChangelog\Entry;
-use Ergebnis\KeepAChangelog\EntryList;
-use Ergebnis\KeepAChangelog\Notes;
-use Ergebnis\KeepAChangelog\PullRequest;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -33,18 +27,18 @@ use PHPUnit\Framework;
  */
 final class EntryListTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testEmptyReturnsEntryList(): void
     {
-        $entryList = EntryList::empty();
+        $entryList = KeepAChangelog\EntryList::empty();
 
         self::assertSame([], $entryList->toArray());
     }
 
     public function testCreateReturnsEntryList(): void
     {
-        $entryList = EntryList::create();
+        $entryList = KeepAChangelog\EntryList::create();
 
         self::assertSame([], $entryList->toArray());
     }
@@ -53,16 +47,16 @@ final class EntryListTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $values = \array_map(static function () use ($faker): Entry {
-            return Entry::create(
-                Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString($faker->slug(2)),
-                Notes::fromString($faker->realText()),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Entry {
+            return KeepAChangelog\Entry::create(
+                KeepAChangelog\Description::fromString($faker->sentence()),
+                KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                KeepAChangelog\Author::fromString($faker->slug(2)),
+                KeepAChangelog\Notes::fromString($faker->realText()),
             );
         }, \range(0, 4));
 
-        $entryList = EntryList::create(...$values);
+        $entryList = KeepAChangelog\EntryList::create(...$values);
 
         self::assertSame($values, $entryList->toArray());
     }
@@ -71,16 +65,16 @@ final class EntryListTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $values = \array_map(static function () use ($faker): Entry {
-            return Entry::create(
-                Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString($faker->slug(2)),
-                Notes::fromString($faker->realText()),
+        $values = \array_map(static function () use ($faker): KeepAChangelog\Entry {
+            return KeepAChangelog\Entry::create(
+                KeepAChangelog\Description::fromString($faker->sentence()),
+                KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                KeepAChangelog\Author::fromString($faker->slug(2)),
+                KeepAChangelog\Notes::fromString($faker->realText()),
             );
         }, \range(0, 4));
 
-        $entryList = EntryList::create(...$values);
+        $entryList = KeepAChangelog\EntryList::create(...$values);
 
         $mutated = $entryList->sortedByPullRequestAscending();
 
@@ -88,16 +82,16 @@ final class EntryListTest extends Framework\TestCase
 
         $sorted = $values;
 
-        \usort($sorted, static function (Entry $a, Entry $b): int {
+        \usort($sorted, static function (KeepAChangelog\Entry $a, KeepAChangelog\Entry $b): int {
             return $a->pullRequest()->compare($b->pullRequest());
         });
 
-        self::assertEquals(EntryList::create(...$sorted), $mutated);
+        self::assertEquals(KeepAChangelog\EntryList::create(...$sorted), $mutated);
     }
 
     public function testIsEmptyReturnsTrueWhenEntryListIsEmpty(): void
     {
-        $entryList = EntryList::empty();
+        $entryList = KeepAChangelog\EntryList::empty();
 
         self::assertTrue($entryList->isEmpty());
     }
@@ -106,12 +100,12 @@ final class EntryListTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $entryList = EntryList::create(...\array_map(static function () use ($faker): Entry {
-            return Entry::create(
-                Description::fromString($faker->sentence()),
-                PullRequest::fromInt($faker->numberBetween(1)),
-                Author::fromString($faker->slug(2)),
-                Notes::fromString($faker->realText()),
+        $entryList = KeepAChangelog\EntryList::create(...\array_map(static function () use ($faker): KeepAChangelog\Entry {
+            return KeepAChangelog\Entry::create(
+                KeepAChangelog\Description::fromString($faker->sentence()),
+                KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1)),
+                KeepAChangelog\Author::fromString($faker->slug(2)),
+                KeepAChangelog\Notes::fromString($faker->realText()),
             );
         }, \range(0, 4)));
 

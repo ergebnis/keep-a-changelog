@@ -13,12 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\DefaultBranch;
-use Ergebnis\KeepAChangelog\InitialCommit;
-use Ergebnis\KeepAChangelog\Name;
-use Ergebnis\KeepAChangelog\Owner;
-use Ergebnis\KeepAChangelog\Repository;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -31,18 +26,18 @@ use PHPUnit\Framework;
  */
 final class RepositoryTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testCreateReturnsRepositoryWhenNullableValuesAreNotNull(): void
     {
         $faker = self::faker();
 
-        $owner = Owner::fromString($faker->slug(2));
-        $name = Name::fromString($faker->slug(2));
-        $defaultBranch = DefaultBranch::fromString($faker->slug(2));
-        $initialCommit = InitialCommit::fromString($faker->sha1());
+        $owner = KeepAChangelog\Owner::fromString($faker->slug(2));
+        $name = KeepAChangelog\Name::fromString($faker->slug(2));
+        $defaultBranch = KeepAChangelog\DefaultBranch::fromString($faker->slug(2));
+        $initialCommit = KeepAChangelog\InitialCommit::fromString($faker->sha1());
 
-        $repository = Repository::create(
+        $repository = KeepAChangelog\Repository::create(
             $owner,
             $name,
             $defaultBranch,
@@ -59,11 +54,11 @@ final class RepositoryTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $owner = Owner::fromString($faker->slug(2));
-        $name = Name::fromString($faker->slug(2));
-        $defaultBranch = DefaultBranch::fromString($faker->slug(2));
+        $owner = KeepAChangelog\Owner::fromString($faker->slug(2));
+        $name = KeepAChangelog\Name::fromString($faker->slug(2));
+        $defaultBranch = KeepAChangelog\DefaultBranch::fromString($faker->slug(2));
 
-        $repository = Repository::create(
+        $repository = KeepAChangelog\Repository::create(
             $owner,
             $name,
             $defaultBranch,

@@ -31,7 +31,7 @@ final class Tag implements Reference
     {
         try {
             $version = Version\Version::fromString($value);
-        } catch (Version\Exception\InvalidVersion $exception) {
+        } catch (Version\Exception\InvalidVersion $invalidVersion) {
             throw InvalidTag::named($value);
         }
 

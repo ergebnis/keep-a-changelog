@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidName;
-use Ergebnis\KeepAChangelog\Name;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -29,9 +28,9 @@ final class NameTest extends Framework\TestCase
      */
     public function testFromStringRejectsInvalidValue(string $value): void
     {
-        $this->expectException(InvalidName::class);
+        $this->expectException(KeepAChangelog\InvalidName::class);
 
-        Name::fromString($value);
+        KeepAChangelog\Name::fromString($value);
     }
 
     /**
@@ -63,7 +62,7 @@ final class NameTest extends Framework\TestCase
      */
     public function testFromStringReturnsName(string $value): void
     {
-        $name = Name::fromString($value);
+        $name = KeepAChangelog\Name::fromString($value);
 
         self::assertSame($value, $name->toString());
     }

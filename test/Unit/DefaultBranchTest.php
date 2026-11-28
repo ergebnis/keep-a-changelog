@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\DefaultBranch;
-use Ergebnis\KeepAChangelog\InvalidDefaultBranch;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -26,7 +25,7 @@ final class DefaultBranchTest extends Framework\TestCase
 {
     public function testMainReturnsDefaultBranch(): void
     {
-        $defaultBranch = DefaultBranch::main();
+        $defaultBranch = KeepAChangelog\DefaultBranch::main();
 
         self::assertSame('main', $defaultBranch->toString());
     }
@@ -36,9 +35,9 @@ final class DefaultBranchTest extends Framework\TestCase
      */
     public function testFromStringRejectsInvalidValue(string $value): void
     {
-        $this->expectException(InvalidDefaultBranch::class);
+        $this->expectException(KeepAChangelog\InvalidDefaultBranch::class);
 
-        DefaultBranch::fromString($value);
+        KeepAChangelog\DefaultBranch::fromString($value);
     }
 
     /**
@@ -70,7 +69,7 @@ final class DefaultBranchTest extends Framework\TestCase
      */
     public function testFromStringReturnsDefaultBranch(string $value): void
     {
-        $defaultBranch = DefaultBranch::fromString($value);
+        $defaultBranch = KeepAChangelog\DefaultBranch::fromString($value);
 
         self::assertSame($value, $defaultBranch->toString());
     }
