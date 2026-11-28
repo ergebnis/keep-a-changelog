@@ -13,12 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Author;
-use Ergebnis\KeepAChangelog\Description;
-use Ergebnis\KeepAChangelog\Entry;
-use Ergebnis\KeepAChangelog\Notes;
-use Ergebnis\KeepAChangelog\PullRequest;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -31,18 +26,18 @@ use PHPUnit\Framework;
  */
 final class EntryTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testCreateReturnsEntryWhenNullableValuesAreNotNull(): void
     {
         $faker = self::faker();
 
-        $description = Description::fromString($faker->sentence());
-        $pullRequest = PullRequest::fromInt($faker->numberBetween(1));
-        $author = Author::fromString($faker->slug(2));
-        $notes = Notes::fromString($faker->realText());
+        $description = KeepAChangelog\Description::fromString($faker->sentence());
+        $pullRequest = KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1));
+        $author = KeepAChangelog\Author::fromString($faker->slug(2));
+        $notes = KeepAChangelog\Notes::fromString($faker->realText());
 
-        $entry = Entry::create(
+        $entry = KeepAChangelog\Entry::create(
             $description,
             $pullRequest,
             $author,
@@ -59,11 +54,11 @@ final class EntryTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $description = Description::fromString($faker->sentence());
-        $pullRequest = PullRequest::fromInt($faker->numberBetween(1));
-        $author = Author::fromString($faker->slug(2));
+        $description = KeepAChangelog\Description::fromString($faker->sentence());
+        $pullRequest = KeepAChangelog\PullRequest::fromInt($faker->numberBetween(1));
+        $author = KeepAChangelog\Author::fromString($faker->slug(2));
 
-        $entry = Entry::create(
+        $entry = KeepAChangelog\Entry::create(
             $description,
             $pullRequest,
             $author,

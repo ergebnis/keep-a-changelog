@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidTag;
-use Ergebnis\KeepAChangelog\Tag;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -25,16 +23,16 @@ use PHPUnit\Framework;
  */
 final class TagTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     /**
      * @dataProvider provideInvalidValue
      */
     public function testFromStringRejectsInvalidValue(string $value): void
     {
-        $this->expectException(InvalidTag::class);
+        $this->expectException(KeepAChangelog\InvalidTag::class);
 
-        Tag::fromString($value);
+        KeepAChangelog\Tag::fromString($value);
     }
 
     /**
@@ -60,47 +58,47 @@ final class TagTest extends Framework\TestCase
     {
         $value = self::faker()->semver();
 
-        $tag = Tag::fromString($value);
+        $tag = KeepAChangelog\Tag::fromString($value);
 
         self::assertSame($value, $tag->toString());
     }
 
     public function testCompareReturnsMinusOneWhenTagIsLess(): void
     {
-        $one = Tag::fromString('1.0.0');
-        $two = Tag::fromString('2.0.0');
+        $one = KeepAChangelog\Tag::fromString('1.0.0');
+        $two = KeepAChangelog\Tag::fromString('2.0.0');
 
         self::assertSame(-1, $one->compare($two));
     }
 
     public function testCompareReturnsZeroWhenTagsAreEqual(): void
     {
-        $one = Tag::fromString('1.0.0');
-        $two = Tag::fromString('1.0.0');
+        $one = KeepAChangelog\Tag::fromString('1.0.0');
+        $two = KeepAChangelog\Tag::fromString('1.0.0');
 
         self::assertSame(0, $one->compare($two));
     }
 
     public function testCompareReturnsPlusOneWhenTagIsGreater(): void
     {
-        $one = Tag::fromString('2.0.0');
-        $two = Tag::fromString('1.0.0');
+        $one = KeepAChangelog\Tag::fromString('2.0.0');
+        $two = KeepAChangelog\Tag::fromString('1.0.0');
 
         self::assertSame(1, $one->compare($two));
     }
 
     public function testEqualsReturnsFalseWhenTagsAreNotEqual(): void
     {
-        $one = Tag::fromString('1.0.0');
-        $two = Tag::fromString('2.0.0');
+        $one = KeepAChangelog\Tag::fromString('1.0.0');
+        $two = KeepAChangelog\Tag::fromString('2.0.0');
 
         self::assertFalse($one->equals($two));
     }
 
     public function testEqualsReturnsTrueWhenTagsAreEqual(): void
     {
-        $one = Tag::fromString('1.0.0');
-        $two = Tag::fromString('1.0.0');
+        $one = KeepAChangelog\Tag::fromString('1.0.0');
+        $two = KeepAChangelog\Tag::fromString('1.0.0');
 
         self::assertTrue($one->equals($two));
     }

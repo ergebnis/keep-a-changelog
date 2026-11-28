@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\MarkdownBuffer;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -22,11 +21,11 @@ use PHPUnit\Framework;
  */
 final class MarkdownBufferTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testFlushReturnsEmptyStringWhenNoLinesHaveBeenBuffered(): void
     {
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         self::assertSame('', $markdownBuffer->flush());
     }
@@ -36,7 +35,7 @@ final class MarkdownBufferTest extends Framework\TestCase
         /** @var list<string> $lines */
         $lines = self::faker()->sentences(3);
 
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         $markdownBuffer->append(...$lines);
 
@@ -66,7 +65,7 @@ final class MarkdownBufferTest extends Framework\TestCase
             );
         }, $lines);
 
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         $markdownBuffer->append(...$untrimmed);
 
@@ -85,7 +84,7 @@ final class MarkdownBufferTest extends Framework\TestCase
         /** @var list<string> $lines */
         $lines = self::faker()->sentences(3);
 
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         $markdownBuffer->append('');
         $markdownBuffer->append(...$lines);
@@ -106,7 +105,7 @@ final class MarkdownBufferTest extends Framework\TestCase
      */
     public function testFlushIgnoresBlankOrEmptyLinesOnly(string $value): void
     {
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         $markdownBuffer->append($value);
         $markdownBuffer->append($value);
@@ -124,7 +123,7 @@ final class MarkdownBufferTest extends Framework\TestCase
         /** @var list<string> $lines */
         $lines = self::faker()->sentences(3);
 
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         $markdownBuffer->append(...$lines);
         $markdownBuffer->append($value);
@@ -152,7 +151,7 @@ final class MarkdownBufferTest extends Framework\TestCase
             $faker->sentence(),
         ];
 
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         $markdownBuffer->append(...$lines);
 
@@ -180,7 +179,7 @@ final class MarkdownBufferTest extends Framework\TestCase
         $four = $faker->sentence();
         $five = $faker->sentence();
 
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         $markdownBuffer->append($one);
 
@@ -222,7 +221,7 @@ final class MarkdownBufferTest extends Framework\TestCase
         /** @var list<string> $lines */
         $lines = self::faker()->sentences(3);
 
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         $markdownBuffer->append(...$lines);
 

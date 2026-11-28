@@ -13,18 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Changelog;
-use Ergebnis\KeepAChangelog\Changes;
-use Ergebnis\KeepAChangelog\DefaultBranch;
-use Ergebnis\KeepAChangelog\InitialCommit;
-use Ergebnis\KeepAChangelog\Name;
-use Ergebnis\KeepAChangelog\Owner;
-use Ergebnis\KeepAChangelog\Release;
-use Ergebnis\KeepAChangelog\ReleaseList;
-use Ergebnis\KeepAChangelog\Repository;
-use Ergebnis\KeepAChangelog\Tag;
-use Ergebnis\KeepAChangelog\Test;
-use Ergebnis\KeepAChangelog\Unreleased;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -44,31 +33,31 @@ use PHPUnit\Framework;
  */
 final class ChangelogTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testCreateReturnsChangelog(): void
     {
         $faker = self::faker();
 
-        $repository = Repository::create(
-            Owner::fromString($faker->slug(2)),
-            Name::fromString($faker->slug(2)),
-            DefaultBranch::fromString($faker->slug(2)),
-            InitialCommit::fromString($faker->sha1()),
+        $repository = KeepAChangelog\Repository::create(
+            KeepAChangelog\Owner::fromString($faker->slug(2)),
+            KeepAChangelog\Name::fromString($faker->slug(2)),
+            KeepAChangelog\DefaultBranch::fromString($faker->slug(2)),
+            KeepAChangelog\InitialCommit::fromString($faker->sha1()),
         );
 
-        $unreleased = Unreleased::empty();
+        $unreleased = KeepAChangelog\Unreleased::empty();
 
         $uniqueFaker = self::faker()->unique();
 
-        $releases = ReleaseList::create(...\array_map(static function () use ($uniqueFaker): Release {
-            return Release::create(
-                Tag::fromString($uniqueFaker->semver()),
-                Changes::empty(),
+        $releases = KeepAChangelog\ReleaseList::create(...\array_map(static function () use ($uniqueFaker): KeepAChangelog\Release {
+            return KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString($uniqueFaker->semver()),
+                KeepAChangelog\Changes::empty(),
             );
         }, \range(0, 2)));
 
-        $changelog = Changelog::create(
+        $changelog = KeepAChangelog\Changelog::create(
             $repository,
             $unreleased,
             $releases,

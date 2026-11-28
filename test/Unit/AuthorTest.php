@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Author;
-use Ergebnis\KeepAChangelog\InvalidAuthor;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -29,9 +28,9 @@ final class AuthorTest extends Framework\TestCase
      */
     public function testFromStringRejectsInvalidValue(string $value): void
     {
-        $this->expectException(InvalidAuthor::class);
+        $this->expectException(KeepAChangelog\InvalidAuthor::class);
 
-        Author::fromString($value);
+        KeepAChangelog\Author::fromString($value);
     }
 
     /**
@@ -69,7 +68,7 @@ final class AuthorTest extends Framework\TestCase
      */
     public function testFromStringReturnsAuthor(string $value): void
     {
-        $author = Author::fromString($value);
+        $author = KeepAChangelog\Author::fromString($value);
 
         self::assertSame($value, $author->toString());
     }

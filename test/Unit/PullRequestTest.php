@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidPullRequest;
-use Ergebnis\KeepAChangelog\PullRequest;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -25,16 +23,16 @@ use PHPUnit\Framework;
  */
 final class PullRequestTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     /**
      * @dataProvider \Ergebnis\DataProvider\IntProvider::lessThanOne
      */
     public function testFromIntRejectsInvalidValue(int $value): void
     {
-        $this->expectException(InvalidPullRequest::class);
+        $this->expectException(KeepAChangelog\InvalidPullRequest::class);
 
-        PullRequest::fromInt($value);
+        KeepAChangelog\PullRequest::fromInt($value);
     }
 
     /**
@@ -42,7 +40,7 @@ final class PullRequestTest extends Framework\TestCase
      */
     public function testFromIntReturnsPullRequest(int $value): void
     {
-        $pullRequest = PullRequest::fromInt($value);
+        $pullRequest = KeepAChangelog\PullRequest::fromInt($value);
 
         self::assertSame($value, $pullRequest->toInt());
     }
@@ -51,8 +49,8 @@ final class PullRequestTest extends Framework\TestCase
     {
         $value = self::faker()->numberBetween(1);
 
-        $one = PullRequest::fromInt($value);
-        $two = PullRequest::fromInt($value + 1);
+        $one = KeepAChangelog\PullRequest::fromInt($value);
+        $two = KeepAChangelog\PullRequest::fromInt($value + 1);
 
         self::assertSame(-1, $one->compare($two));
     }
@@ -61,8 +59,8 @@ final class PullRequestTest extends Framework\TestCase
     {
         $value = self::faker()->numberBetween(1);
 
-        $one = PullRequest::fromInt($value);
-        $two = PullRequest::fromInt($value);
+        $one = KeepAChangelog\PullRequest::fromInt($value);
+        $two = KeepAChangelog\PullRequest::fromInt($value);
 
         self::assertSame(0, $one->compare($two));
     }
@@ -71,8 +69,8 @@ final class PullRequestTest extends Framework\TestCase
     {
         $value = self::faker()->numberBetween(1);
 
-        $one = PullRequest::fromInt($value + 1);
-        $two = PullRequest::fromInt($value);
+        $one = KeepAChangelog\PullRequest::fromInt($value + 1);
+        $two = KeepAChangelog\PullRequest::fromInt($value);
 
         self::assertSame(1, $one->compare($two));
     }

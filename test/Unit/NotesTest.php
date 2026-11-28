@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidNotes;
-use Ergebnis\KeepAChangelog\Notes;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -31,9 +30,9 @@ final class NotesTest extends Framework\TestCase
      */
     public function testFromStringRejectsInvalidValue(string $value): void
     {
-        $this->expectException(InvalidNotes::class);
+        $this->expectException(KeepAChangelog\InvalidNotes::class);
 
-        Notes::fromString($value);
+        KeepAChangelog\Notes::fromString($value);
     }
 
     /**
@@ -41,7 +40,7 @@ final class NotesTest extends Framework\TestCase
      */
     public function testFromStringReturnsNotes(string $value): void
     {
-        $notes = Notes::fromString($value);
+        $notes = KeepAChangelog\Notes::fromString($value);
 
         self::assertSame($value, $notes->toString());
     }

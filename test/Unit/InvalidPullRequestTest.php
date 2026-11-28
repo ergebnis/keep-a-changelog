@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidPullRequest;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -22,13 +21,13 @@ use PHPUnit\Framework;
  */
 final class InvalidPullRequestTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testFromReturnsException(): void
     {
         $value = self::faker()->numberBetween(-1000, 0);
 
-        $exception = InvalidPullRequest::from($value);
+        $exception = KeepAChangelog\InvalidPullRequest::from($value);
 
         $expected = \sprintf(
             'Value %d is not a valid pull request number.',

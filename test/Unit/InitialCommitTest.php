@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InitialCommit;
-use Ergebnis\KeepAChangelog\InvalidInitialCommit;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -25,7 +23,7 @@ use PHPUnit\Framework;
  */
 final class InitialCommitTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     /**
      * @dataProvider \Ergebnis\DataProvider\StringProvider::blank
@@ -34,9 +32,9 @@ final class InitialCommitTest extends Framework\TestCase
      */
     public function testFromStringRejectsInvalidValue(string $value): void
     {
-        $this->expectException(InvalidInitialCommit::class);
+        $this->expectException(KeepAChangelog\InvalidInitialCommit::class);
 
-        InitialCommit::fromString($value);
+        KeepAChangelog\InitialCommit::fromString($value);
     }
 
     /**
@@ -77,7 +75,7 @@ final class InitialCommitTest extends Framework\TestCase
      */
     public function testFromStringReturnsInitialCommit(string $value): void
     {
-        $initialCommit = InitialCommit::fromString($value);
+        $initialCommit = KeepAChangelog\InitialCommit::fromString($value);
 
         self::assertSame($value, $initialCommit->toString());
     }

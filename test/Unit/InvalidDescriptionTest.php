@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\InvalidDescription;
-use Ergebnis\KeepAChangelog\Test;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -22,13 +21,13 @@ use PHPUnit\Framework;
  */
 final class InvalidDescriptionTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testFromReturnsException(): void
     {
         $value = self::faker()->sentence();
 
-        $exception = InvalidDescription::from($value);
+        $exception = KeepAChangelog\InvalidDescription::from($value);
 
         $expected = \sprintf(
             'Value "%s" is not a valid description.',

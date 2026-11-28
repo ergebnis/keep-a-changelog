@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Description;
-use Ergebnis\KeepAChangelog\InvalidDescription;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -29,9 +28,9 @@ final class DescriptionTest extends Framework\TestCase
      */
     public function testFromStringRejectsInvalidValue(string $value): void
     {
-        $this->expectException(InvalidDescription::class);
+        $this->expectException(KeepAChangelog\InvalidDescription::class);
 
-        Description::fromString($value);
+        KeepAChangelog\Description::fromString($value);
     }
 
     /**
@@ -66,7 +65,7 @@ final class DescriptionTest extends Framework\TestCase
      */
     public function testFromStringReturnsDescription(string $value): void
     {
-        $description = Description::fromString($value);
+        $description = KeepAChangelog\Description::fromString($value);
 
         self::assertSame($value, $description->toString());
     }

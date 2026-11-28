@@ -13,26 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Author;
-use Ergebnis\KeepAChangelog\Changelog;
-use Ergebnis\KeepAChangelog\Changes;
-use Ergebnis\KeepAChangelog\DefaultBranch;
-use Ergebnis\KeepAChangelog\Description;
-use Ergebnis\KeepAChangelog\Entry;
-use Ergebnis\KeepAChangelog\EntryList;
-use Ergebnis\KeepAChangelog\InitialCommit;
-use Ergebnis\KeepAChangelog\MarkdownBuffer;
-use Ergebnis\KeepAChangelog\MarkdownRenderer;
-use Ergebnis\KeepAChangelog\Name;
-use Ergebnis\KeepAChangelog\Notes;
-use Ergebnis\KeepAChangelog\Owner;
-use Ergebnis\KeepAChangelog\PullRequest;
-use Ergebnis\KeepAChangelog\Release;
-use Ergebnis\KeepAChangelog\ReleaseList;
-use Ergebnis\KeepAChangelog\Repository;
-use Ergebnis\KeepAChangelog\Tag;
-use Ergebnis\KeepAChangelog\UnknownRelease;
-use Ergebnis\KeepAChangelog\Unreleased;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -64,18 +45,18 @@ final class MarkdownRendererTest extends Framework\TestCase
 {
     public function testRenderChangelogReturnsMarkdownWhenChangelogIsEmptyAndRepositoryDoesNotHaveInitialCommit(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
                 null,
             ),
-            Unreleased::empty(),
-            ReleaseList::empty(),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::empty(),
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderChangelog($changelog);
 
@@ -94,18 +75,18 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderChangelogReturnsMarkdownWhenChangelogIsEmptyAndRepositoryHasInitialCommit(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
-                InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
+                KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
             ),
-            Unreleased::empty(),
-            ReleaseList::empty(),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::empty(),
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderChangelog($changelog);
 
@@ -128,51 +109,51 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderChangelogReturnsMarkdownWhenChangelogHasUnreleasedChanges(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
-                InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
+                KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
             ),
-            Unreleased::create(Changes::create(
-                EntryList::create(
-                    Entry::create(
-                        Description::fromString('Added `Bar`'),
-                        PullRequest::fromInt(15),
-                        Author::fromString('localheinz'),
+            KeepAChangelog\Unreleased::create(KeepAChangelog\Changes::create(
+                KeepAChangelog\EntryList::create(
+                    KeepAChangelog\Entry::create(
+                        KeepAChangelog\Description::fromString('Added `Bar`'),
+                        KeepAChangelog\PullRequest::fromInt(15),
+                        KeepAChangelog\Author::fromString('localheinz'),
                         null,
                     ),
-                    Entry::create(
-                        Description::fromString('Added `Foo`'),
-                        PullRequest::fromInt(12),
-                        Author::fromString('localheinz'),
-                        null,
-                    ),
-                ),
-                EntryList::empty(),
-                EntryList::empty(),
-                EntryList::empty(),
-                EntryList::create(
-                    Entry::create(
-                        Description::fromString('Fixed `Qux`'),
-                        PullRequest::fromInt(14),
-                        Author::fromString('localheinz'),
-                        null,
-                    ),
-                    Entry::create(
-                        Description::fromString('Fixed `Baz`'),
-                        PullRequest::fromInt(13),
-                        Author::fromString('localheinz'),
+                    KeepAChangelog\Entry::create(
+                        KeepAChangelog\Description::fromString('Added `Foo`'),
+                        KeepAChangelog\PullRequest::fromInt(12),
+                        KeepAChangelog\Author::fromString('localheinz'),
                         null,
                     ),
                 ),
-                EntryList::empty(),
+                KeepAChangelog\EntryList::empty(),
+                KeepAChangelog\EntryList::empty(),
+                KeepAChangelog\EntryList::empty(),
+                KeepAChangelog\EntryList::create(
+                    KeepAChangelog\Entry::create(
+                        KeepAChangelog\Description::fromString('Fixed `Qux`'),
+                        KeepAChangelog\PullRequest::fromInt(14),
+                        KeepAChangelog\Author::fromString('localheinz'),
+                        null,
+                    ),
+                    KeepAChangelog\Entry::create(
+                        KeepAChangelog\Description::fromString('Fixed `Baz`'),
+                        KeepAChangelog\PullRequest::fromInt(13),
+                        KeepAChangelog\Author::fromString('localheinz'),
+                        null,
+                    ),
+                ),
+                KeepAChangelog\EntryList::empty(),
             )),
-            ReleaseList::empty(),
+            KeepAChangelog\ReleaseList::empty(),
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderChangelog($changelog);
 
@@ -205,38 +186,38 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderChangelogReturnsMarkdownWhenChangelogHasUnreleasedChangesWhereEntryHasNotes(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
-                InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
+                KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
             ),
-            Unreleased::create(Changes::create(
-                EntryList::create(
-                    Entry::create(
-                        Description::fromString('Added `Foo`'),
-                        PullRequest::fromInt(12),
-                        Author::fromString('localheinz'),
-                        Notes::fromString("This is a longer note\nthat spans multiple lines."),
+            KeepAChangelog\Unreleased::create(KeepAChangelog\Changes::create(
+                KeepAChangelog\EntryList::create(
+                    KeepAChangelog\Entry::create(
+                        KeepAChangelog\Description::fromString('Added `Foo`'),
+                        KeepAChangelog\PullRequest::fromInt(12),
+                        KeepAChangelog\Author::fromString('localheinz'),
+                        KeepAChangelog\Notes::fromString("This is a longer note\nthat spans multiple lines."),
                     ),
-                    Entry::create(
-                        Description::fromString('Added `Bar`'),
-                        PullRequest::fromInt(15),
-                        Author::fromString('localheinz'),
+                    KeepAChangelog\Entry::create(
+                        KeepAChangelog\Description::fromString('Added `Bar`'),
+                        KeepAChangelog\PullRequest::fromInt(15),
+                        KeepAChangelog\Author::fromString('localheinz'),
                         null,
                     ),
                 ),
-                EntryList::empty(),
-                EntryList::empty(),
-                EntryList::empty(),
-                EntryList::empty(),
-                EntryList::empty(),
+                KeepAChangelog\EntryList::empty(),
+                KeepAChangelog\EntryList::empty(),
+                KeepAChangelog\EntryList::empty(),
+                KeepAChangelog\EntryList::empty(),
+                KeepAChangelog\EntryList::empty(),
             )),
-            ReleaseList::empty(),
+            KeepAChangelog\ReleaseList::empty(),
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderChangelog($changelog);
 
@@ -268,21 +249,21 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderChangelogReturnsMarkdownWhenChangelogHasReleaseWithoutChanges(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
-                InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
+                KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
             ),
-            Unreleased::create(Changes::empty()),
-            ReleaseList::create(Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Unreleased::create(KeepAChangelog\Changes::empty()),
+            KeepAChangelog\ReleaseList::create(KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::empty(),
             )),
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderChangelog($changelog);
 
@@ -309,80 +290,80 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderChangelogReturnsMarkdownWhenChangelogHasReleaseWithChanges(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
-                InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
+                KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
             ),
-            Unreleased::empty(),
-            ReleaseList::create(
-                Release::create(
-                    Tag::fromString('1.0.0'),
-                    Changes::create(
-                        EntryList::create(
-                            Entry::create(
-                                Description::fromString('Added `Bar`'),
-                                PullRequest::fromInt(15),
-                                Author::fromString('localheinz'),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(
+                KeepAChangelog\Release::create(
+                    KeepAChangelog\Tag::fromString('1.0.0'),
+                    KeepAChangelog\Changes::create(
+                        KeepAChangelog\EntryList::create(
+                            KeepAChangelog\Entry::create(
+                                KeepAChangelog\Description::fromString('Added `Bar`'),
+                                KeepAChangelog\PullRequest::fromInt(15),
+                                KeepAChangelog\Author::fromString('localheinz'),
                                 null,
                             ),
-                            Entry::create(
-                                Description::fromString('Added `Foo`'),
-                                PullRequest::fromInt(12),
-                                Author::fromString('localheinz'),
-                                null,
-                            ),
-                        ),
-                        EntryList::empty(),
-                        EntryList::empty(),
-                        EntryList::empty(),
-                        EntryList::create(
-                            Entry::create(
-                                Description::fromString('Fixed `Qux`'),
-                                PullRequest::fromInt(14),
-                                Author::fromString('localheinz'),
-                                null,
-                            ),
-                            Entry::create(
-                                Description::fromString('Fixed `Baz`'),
-                                PullRequest::fromInt(13),
-                                Author::fromString('localheinz'),
+                            KeepAChangelog\Entry::create(
+                                KeepAChangelog\Description::fromString('Added `Foo`'),
+                                KeepAChangelog\PullRequest::fromInt(12),
+                                KeepAChangelog\Author::fromString('localheinz'),
                                 null,
                             ),
                         ),
-                        EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::create(
+                            KeepAChangelog\Entry::create(
+                                KeepAChangelog\Description::fromString('Fixed `Qux`'),
+                                KeepAChangelog\PullRequest::fromInt(14),
+                                KeepAChangelog\Author::fromString('localheinz'),
+                                null,
+                            ),
+                            KeepAChangelog\Entry::create(
+                                KeepAChangelog\Description::fromString('Fixed `Baz`'),
+                                KeepAChangelog\PullRequest::fromInt(13),
+                                KeepAChangelog\Author::fromString('localheinz'),
+                                null,
+                            ),
+                        ),
+                        KeepAChangelog\EntryList::empty(),
                     ),
                 ),
-                Release::create(
-                    Tag::fromString('1.1.0'),
-                    Changes::create(
-                        EntryList::create(
-                            Entry::create(
-                                Description::fromString('Added `Baz`'),
-                                PullRequest::fromInt(20),
-                                Author::fromString('localheinz'),
-                                Notes::fromString("This required a migration.\nSee UPGRADING.md for details."),
+                KeepAChangelog\Release::create(
+                    KeepAChangelog\Tag::fromString('1.1.0'),
+                    KeepAChangelog\Changes::create(
+                        KeepAChangelog\EntryList::create(
+                            KeepAChangelog\Entry::create(
+                                KeepAChangelog\Description::fromString('Added `Baz`'),
+                                KeepAChangelog\PullRequest::fromInt(20),
+                                KeepAChangelog\Author::fromString('localheinz'),
+                                KeepAChangelog\Notes::fromString("This required a migration.\nSee UPGRADING.md for details."),
                             ),
-                            Entry::create(
-                                Description::fromString('Added `Qux`'),
-                                PullRequest::fromInt(10),
-                                Author::fromString('localheinz'),
+                            KeepAChangelog\Entry::create(
+                                KeepAChangelog\Description::fromString('Added `Qux`'),
+                                KeepAChangelog\PullRequest::fromInt(10),
+                                KeepAChangelog\Author::fromString('localheinz'),
                                 null,
                             ),
                         ),
-                        EntryList::empty(),
-                        EntryList::empty(),
-                        EntryList::empty(),
-                        EntryList::empty(),
-                        EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
                     ),
                 ),
             ),
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderChangelog($changelog);
 
@@ -431,73 +412,73 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderChangelogReturnsMarkdownWhenChangelogHasReleaseWithChangesWhereEntryHasNotes(): void
     {
-        $repository = Repository::create(
-            Owner::fromString('ergebnis'),
-            Name::fromString('keep-a-changelog'),
-            DefaultBranch::fromString('main'),
-            InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $repository = KeepAChangelog\Repository::create(
+            KeepAChangelog\Owner::fromString('ergebnis'),
+            KeepAChangelog\Name::fromString('keep-a-changelog'),
+            KeepAChangelog\DefaultBranch::fromString('main'),
+            KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
         );
 
-        $unreleased = Unreleased::empty();
+        $unreleased = KeepAChangelog\Unreleased::empty();
 
-        $releases = ReleaseList::create(
-            Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::create(
-                    EntryList::create(
-                        Entry::create(
-                            Description::fromString('Added `Foo`'),
-                            PullRequest::fromInt(3),
-                            Author::fromString('localheinz'),
+        $releases = KeepAChangelog\ReleaseList::create(
+            KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::create(
+                    KeepAChangelog\EntryList::create(
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Foo`'),
+                            KeepAChangelog\PullRequest::fromInt(3),
+                            KeepAChangelog\Author::fromString('localheinz'),
                             null,
                         ),
-                        Entry::create(
-                            Description::fromString('Added `Bar`'),
-                            PullRequest::fromInt(1),
-                            Author::fromString('localheinz'),
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Bar`'),
+                            KeepAChangelog\PullRequest::fromInt(1),
+                            KeepAChangelog\Author::fromString('localheinz'),
                             null,
                         ),
                     ),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
                 ),
             ),
-            Release::create(
-                Tag::fromString('1.1.0'),
-                Changes::create(
-                    EntryList::create(
-                        Entry::create(
-                            Description::fromString('Added `Baz`'),
-                            PullRequest::fromInt(20),
-                            Author::fromString('localheinz'),
-                            Notes::fromString("This required a migration.\nSee UPGRADING.md for details."),
+            KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.1.0'),
+                KeepAChangelog\Changes::create(
+                    KeepAChangelog\EntryList::create(
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Baz`'),
+                            KeepAChangelog\PullRequest::fromInt(20),
+                            KeepAChangelog\Author::fromString('localheinz'),
+                            KeepAChangelog\Notes::fromString("This required a migration.\nSee UPGRADING.md for details."),
                         ),
-                        Entry::create(
-                            Description::fromString('Added `Qux`'),
-                            PullRequest::fromInt(10),
-                            Author::fromString('localheinz'),
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Qux`'),
+                            KeepAChangelog\PullRequest::fromInt(10),
+                            KeepAChangelog\Author::fromString('localheinz'),
                             null,
                         ),
                     ),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
                 ),
             ),
         );
 
-        $changelog = Changelog::create(
+        $changelog = KeepAChangelog\Changelog::create(
             $repository,
             $unreleased,
             $releases,
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderChangelog($changelog);
 
@@ -541,93 +522,93 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderChangelogReturnsMarkdownWhenChangelogHasUnreleasedAndReleasedEntries(): void
     {
-        $repository = Repository::create(
-            Owner::fromString('ergebnis'),
-            Name::fromString('keep-a-changelog'),
-            DefaultBranch::fromString('main'),
-            InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $repository = KeepAChangelog\Repository::create(
+            KeepAChangelog\Owner::fromString('ergebnis'),
+            KeepAChangelog\Name::fromString('keep-a-changelog'),
+            KeepAChangelog\DefaultBranch::fromString('main'),
+            KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
         );
 
-        $unreleased = Unreleased::create(Changes::create(
-            EntryList::create(
-                Entry::create(
-                    Description::fromString('Added `Quux`'),
-                    PullRequest::fromInt(30),
-                    Author::fromString('localheinz'),
+        $unreleased = KeepAChangelog\Unreleased::create(KeepAChangelog\Changes::create(
+            KeepAChangelog\EntryList::create(
+                KeepAChangelog\Entry::create(
+                    KeepAChangelog\Description::fromString('Added `Quux`'),
+                    KeepAChangelog\PullRequest::fromInt(30),
+                    KeepAChangelog\Author::fromString('localheinz'),
                     null,
                 ),
-                Entry::create(
-                    Description::fromString('Added `Corge`'),
-                    PullRequest::fromInt(25),
-                    Author::fromString('localheinz'),
+                KeepAChangelog\Entry::create(
+                    KeepAChangelog\Description::fromString('Added `Corge`'),
+                    KeepAChangelog\PullRequest::fromInt(25),
+                    KeepAChangelog\Author::fromString('localheinz'),
                     null,
                 ),
             ),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
-            EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
+            KeepAChangelog\EntryList::empty(),
         ));
 
-        $releases = ReleaseList::create(
-            Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::create(
-                    EntryList::create(
-                        Entry::create(
-                            Description::fromString('Added `Foo`'),
-                            PullRequest::fromInt(3),
-                            Author::fromString('localheinz'),
+        $releases = KeepAChangelog\ReleaseList::create(
+            KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::create(
+                    KeepAChangelog\EntryList::create(
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Foo`'),
+                            KeepAChangelog\PullRequest::fromInt(3),
+                            KeepAChangelog\Author::fromString('localheinz'),
                             null,
                         ),
-                        Entry::create(
-                            Description::fromString('Added `Bar`'),
-                            PullRequest::fromInt(1),
-                            Author::fromString('localheinz'),
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Bar`'),
+                            KeepAChangelog\PullRequest::fromInt(1),
+                            KeepAChangelog\Author::fromString('localheinz'),
                             null,
                         ),
                     ),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
                 ),
             ),
-            Release::create(
-                Tag::fromString('1.1.0'),
-                Changes::create(
-                    EntryList::create(
-                        Entry::create(
-                            Description::fromString('Added `Baz`'),
-                            PullRequest::fromInt(20),
-                            Author::fromString('localheinz'),
+            KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.1.0'),
+                KeepAChangelog\Changes::create(
+                    KeepAChangelog\EntryList::create(
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Baz`'),
+                            KeepAChangelog\PullRequest::fromInt(20),
+                            KeepAChangelog\Author::fromString('localheinz'),
                             null,
                         ),
-                        Entry::create(
-                            Description::fromString('Added `Qux`'),
-                            PullRequest::fromInt(10),
-                            Author::fromString('localheinz'),
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Qux`'),
+                            KeepAChangelog\PullRequest::fromInt(10),
+                            KeepAChangelog\Author::fromString('localheinz'),
                             null,
                         ),
                     ),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
                 ),
             ),
         );
 
-        $changelog = Changelog::create(
+        $changelog = KeepAChangelog\Changelog::create(
             $repository,
             $unreleased,
             $releases,
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderChangelog($changelog);
 
@@ -673,33 +654,33 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderChangelogReturnsMarkdownWhenChangelogHasReleaseWithoutInitialCommit(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
                 null,
             ),
-            Unreleased::empty(),
-            ReleaseList::create(Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::create(
-                    EntryList::create(Entry::create(
-                        Description::fromString('Added `Foo`'),
-                        PullRequest::fromInt(1),
-                        Author::fromString('localheinz'),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::create(
+                    KeepAChangelog\EntryList::create(KeepAChangelog\Entry::create(
+                        KeepAChangelog\Description::fromString('Added `Foo`'),
+                        KeepAChangelog\PullRequest::fromInt(1),
+                        KeepAChangelog\Author::fromString('localheinz'),
                         null,
                     )),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
                 ),
             )),
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderChangelog($changelog);
 
@@ -728,18 +709,18 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderChangelogClearsBufferBetweenCalls(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
                 null,
             ),
-            Unreleased::empty(),
-            ReleaseList::empty(),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::empty(),
         );
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $markdownRenderer->renderChangelog($changelog);
 
@@ -760,24 +741,24 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderReleaseRejectsTagWhenChangelogDoesNotHaveReleaseForTag(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
                 null,
             ),
-            Unreleased::empty(),
-            ReleaseList::create(Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::empty(),
             )),
         );
-        $tag = Tag::fromString('2.0.0');
+        $tag = KeepAChangelog\Tag::fromString('2.0.0');
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
-        $this->expectException(UnknownRelease::class);
+        $this->expectException(KeepAChangelog\UnknownRelease::class);
 
         $markdownRenderer->renderRelease(
             $changelog,
@@ -787,22 +768,22 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderReleaseReturnsMarkdownForReleaseWithoutChangesWhenRepositoryDoesNotHaveInitialCommit(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
                 null,
             ),
-            Unreleased::empty(),
-            ReleaseList::create(Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::empty(),
             )),
         );
-        $tag = Tag::fromString('1.0.0');
+        $tag = KeepAChangelog\Tag::fromString('1.0.0');
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderRelease(
             $changelog,
@@ -816,22 +797,22 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderReleaseReturnsMarkdownForReleaseWithoutChangesWhenRepositoryHasInitialCommit(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
-                InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
+                KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
             ),
-            Unreleased::empty(),
-            ReleaseList::create(Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::empty(),
             )),
         );
-        $tag = Tag::fromString('1.0.0');
+        $tag = KeepAChangelog\Tag::fromString('1.0.0');
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderRelease(
             $changelog,
@@ -849,34 +830,34 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderReleaseReturnsMarkdownForInitialReleaseWhenRepositoryDoesNotHaveInitialCommit(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
                 null,
             ),
-            Unreleased::empty(),
-            ReleaseList::create(Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::create(
-                    EntryList::create(Entry::create(
-                        Description::fromString('Added `Foo`'),
-                        PullRequest::fromInt(1),
-                        Author::fromString('localheinz'),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::create(
+                    KeepAChangelog\EntryList::create(KeepAChangelog\Entry::create(
+                        KeepAChangelog\Description::fromString('Added `Foo`'),
+                        KeepAChangelog\PullRequest::fromInt(1),
+                        KeepAChangelog\Author::fromString('localheinz'),
                         null,
                     )),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
                 ),
             )),
         );
-        $tag = Tag::fromString('1.0.0');
+        $tag = KeepAChangelog\Tag::fromString('1.0.0');
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderRelease(
             $changelog,
@@ -896,55 +877,55 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderReleaseReturnsMarkdownForInitialReleaseWhenRepositoryHasInitialCommit(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
-                InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
+                KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
             ),
-            Unreleased::empty(),
-            ReleaseList::create(Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::create(
-                    EntryList::create(
-                        Entry::create(
-                            Description::fromString('Added `Bar`'),
-                            PullRequest::fromInt(15),
-                            Author::fromString('localheinz'),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::create(
+                    KeepAChangelog\EntryList::create(
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Bar`'),
+                            KeepAChangelog\PullRequest::fromInt(15),
+                            KeepAChangelog\Author::fromString('localheinz'),
                             null,
                         ),
-                        Entry::create(
-                            Description::fromString('Added `Foo`'),
-                            PullRequest::fromInt(12),
-                            Author::fromString('localheinz'),
-                            null,
-                        ),
-                    ),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::create(
-                        Entry::create(
-                            Description::fromString('Fixed `Qux`'),
-                            PullRequest::fromInt(14),
-                            Author::fromString('localheinz'),
-                            null,
-                        ),
-                        Entry::create(
-                            Description::fromString('Fixed `Baz`'),
-                            PullRequest::fromInt(13),
-                            Author::fromString('localheinz'),
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Added `Foo`'),
+                            KeepAChangelog\PullRequest::fromInt(12),
+                            KeepAChangelog\Author::fromString('localheinz'),
                             null,
                         ),
                     ),
-                    EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::create(
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Fixed `Qux`'),
+                            KeepAChangelog\PullRequest::fromInt(14),
+                            KeepAChangelog\Author::fromString('localheinz'),
+                            null,
+                        ),
+                        KeepAChangelog\Entry::create(
+                            KeepAChangelog\Description::fromString('Fixed `Baz`'),
+                            KeepAChangelog\PullRequest::fromInt(13),
+                            KeepAChangelog\Author::fromString('localheinz'),
+                            null,
+                        ),
+                    ),
+                    KeepAChangelog\EntryList::empty(),
                 ),
             )),
         );
-        $tag = Tag::fromString('1.0.0');
+        $tag = KeepAChangelog\Tag::fromString('1.0.0');
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderRelease(
             $changelog,
@@ -972,52 +953,52 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderReleaseReturnsMarkdownForReleaseFollowingAnotherRelease(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
-                InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
+                KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
             ),
-            Unreleased::empty(),
-            ReleaseList::create(
-                Release::create(
-                    Tag::fromString('1.0.0'),
-                    Changes::empty(),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(
+                KeepAChangelog\Release::create(
+                    KeepAChangelog\Tag::fromString('1.0.0'),
+                    KeepAChangelog\Changes::empty(),
                 ),
-                Release::create(
-                    Tag::fromString('1.1.0'),
-                    Changes::create(
-                        EntryList::create(
-                            Entry::create(
-                                Description::fromString('Added `Baz`'),
-                                PullRequest::fromInt(20),
-                                Author::fromString('localheinz'),
+                KeepAChangelog\Release::create(
+                    KeepAChangelog\Tag::fromString('1.1.0'),
+                    KeepAChangelog\Changes::create(
+                        KeepAChangelog\EntryList::create(
+                            KeepAChangelog\Entry::create(
+                                KeepAChangelog\Description::fromString('Added `Baz`'),
+                                KeepAChangelog\PullRequest::fromInt(20),
+                                KeepAChangelog\Author::fromString('localheinz'),
                                 null,
                             ),
-                            Entry::create(
-                                Description::fromString('Added `Qux`'),
-                                PullRequest::fromInt(10),
-                                Author::fromString('localheinz'),
+                            KeepAChangelog\Entry::create(
+                                KeepAChangelog\Description::fromString('Added `Qux`'),
+                                KeepAChangelog\PullRequest::fromInt(10),
+                                KeepAChangelog\Author::fromString('localheinz'),
                                 null,
                             ),
                         ),
-                        EntryList::empty(),
-                        EntryList::empty(),
-                        EntryList::empty(),
-                        EntryList::empty(),
-                        EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
+                        KeepAChangelog\EntryList::empty(),
                     ),
                 ),
-                Release::create(
-                    Tag::fromString('2.0.0'),
-                    Changes::empty(),
+                KeepAChangelog\Release::create(
+                    KeepAChangelog\Tag::fromString('2.0.0'),
+                    KeepAChangelog\Changes::empty(),
                 ),
             ),
         );
-        $tag = Tag::fromString('1.1.0');
+        $tag = KeepAChangelog\Tag::fromString('1.1.0');
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderRelease(
             $changelog,
@@ -1040,34 +1021,34 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderReleaseReturnsMarkdownWhenEntryHasNotes(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
-                InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
+                KeepAChangelog\InitialCommit::fromString('88cf670a0f2f73e01011a4f5e0feceb43411e0c9'),
             ),
-            Unreleased::empty(),
-            ReleaseList::create(Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::create(
-                    EntryList::create(Entry::create(
-                        Description::fromString('Added `Foo`'),
-                        PullRequest::fromInt(12),
-                        Author::fromString('localheinz'),
-                        Notes::fromString("This is a longer note\nthat spans multiple lines."),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::create(
+                    KeepAChangelog\EntryList::create(KeepAChangelog\Entry::create(
+                        KeepAChangelog\Description::fromString('Added `Foo`'),
+                        KeepAChangelog\PullRequest::fromInt(12),
+                        KeepAChangelog\Author::fromString('localheinz'),
+                        KeepAChangelog\Notes::fromString("This is a longer note\nthat spans multiple lines."),
                     )),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
-                    EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
+                    KeepAChangelog\EntryList::empty(),
                 ),
             )),
         );
-        $tag = Tag::fromString('1.0.0');
+        $tag = KeepAChangelog\Tag::fromString('1.0.0');
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $rendered = $markdownRenderer->renderRelease(
             $changelog,
@@ -1092,22 +1073,22 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     public function testRenderReleaseClearsBufferBetweenCalls(): void
     {
-        $changelog = Changelog::create(
-            Repository::create(
-                Owner::fromString('ergebnis'),
-                Name::fromString('keep-a-changelog'),
-                DefaultBranch::fromString('main'),
+        $changelog = KeepAChangelog\Changelog::create(
+            KeepAChangelog\Repository::create(
+                KeepAChangelog\Owner::fromString('ergebnis'),
+                KeepAChangelog\Name::fromString('keep-a-changelog'),
+                KeepAChangelog\DefaultBranch::fromString('main'),
                 null,
             ),
-            Unreleased::empty(),
-            ReleaseList::create(Release::create(
-                Tag::fromString('1.0.0'),
-                Changes::empty(),
+            KeepAChangelog\Unreleased::empty(),
+            KeepAChangelog\ReleaseList::create(KeepAChangelog\Release::create(
+                KeepAChangelog\Tag::fromString('1.0.0'),
+                KeepAChangelog\Changes::empty(),
             )),
         );
-        $tag = Tag::fromString('1.0.0');
+        $tag = KeepAChangelog\Tag::fromString('1.0.0');
 
-        $markdownRenderer = new MarkdownRenderer();
+        $markdownRenderer = new KeepAChangelog\MarkdownRenderer();
 
         $markdownRenderer->renderRelease(
             $changelog,
@@ -1126,7 +1107,7 @@ final class MarkdownRendererTest extends Framework\TestCase
 
     private static function buffered(string ...$lines): string
     {
-        $markdownBuffer = new MarkdownBuffer();
+        $markdownBuffer = new KeepAChangelog\MarkdownBuffer();
 
         $markdownBuffer->append(...$lines);
 

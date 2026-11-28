@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Section;
-use Ergebnis\KeepAChangelog\Test;
-use Ergebnis\KeepAChangelog\UnknownSection;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -25,46 +23,46 @@ use PHPUnit\Framework;
  */
 final class SectionTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use KeepAChangelog\Test\Util\Helper;
 
     public function testAddedReturnsSectionWithValueAdded(): void
     {
-        $section = Section::added();
+        $section = KeepAChangelog\Section::added();
 
         self::assertSame('added', $section->toString());
     }
 
     public function testChangedReturnsSectionWithValueChanged(): void
     {
-        $section = Section::changed();
+        $section = KeepAChangelog\Section::changed();
 
         self::assertSame('changed', $section->toString());
     }
 
     public function testDeprecatedReturnsSectionWithValueDeprecated(): void
     {
-        $section = Section::deprecated();
+        $section = KeepAChangelog\Section::deprecated();
 
         self::assertSame('deprecated', $section->toString());
     }
 
     public function testRemovedReturnsSectionWithValueRemoved(): void
     {
-        $section = Section::removed();
+        $section = KeepAChangelog\Section::removed();
 
         self::assertSame('removed', $section->toString());
     }
 
     public function testFixedReturnsSectionWithValueFixed(): void
     {
-        $section = Section::fixed();
+        $section = KeepAChangelog\Section::fixed();
 
         self::assertSame('fixed', $section->toString());
     }
 
     public function testSecurityReturnsSectionWithValueSecurity(): void
     {
-        $section = Section::security();
+        $section = KeepAChangelog\Section::security();
 
         self::assertSame('security', $section->toString());
     }
@@ -73,9 +71,9 @@ final class SectionTest extends Framework\TestCase
     {
         $value = self::faker()->word();
 
-        $this->expectException(UnknownSection::class);
+        $this->expectException(KeepAChangelog\UnknownSection::class);
 
-        Section::fromString($value);
+        KeepAChangelog\Section::fromString($value);
     }
 
     /**
@@ -83,7 +81,7 @@ final class SectionTest extends Framework\TestCase
      */
     public function testFromStringReturnsSection(string $value): void
     {
-        $section = Section::fromString($value);
+        $section = KeepAChangelog\Section::fromString($value);
 
         self::assertSame($value, $section->toString());
     }
@@ -111,16 +109,16 @@ final class SectionTest extends Framework\TestCase
 
     public function testEqualsReturnsFalseWhenValuesAreDifferent(): void
     {
-        $one = Section::added();
-        $two = Section::fixed();
+        $one = KeepAChangelog\Section::added();
+        $two = KeepAChangelog\Section::fixed();
 
         self::assertFalse($one->equals($two));
     }
 
     public function testEqualsReturnsTrueWhenValueIsTheSame(): void
     {
-        $one = Section::added();
-        $two = Section::added();
+        $one = KeepAChangelog\Section::added();
+        $two = KeepAChangelog\Section::added();
 
         self::assertTrue($one->equals($two));
     }

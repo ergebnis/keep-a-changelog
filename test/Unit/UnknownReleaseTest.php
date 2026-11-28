@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\KeepAChangelog\Test\Unit;
 
-use Ergebnis\KeepAChangelog\Tag;
-use Ergebnis\KeepAChangelog\UnknownRelease;
+use Ergebnis\KeepAChangelog;
 use PHPUnit\Framework;
 
 /**
@@ -26,9 +25,9 @@ final class UnknownReleaseTest extends Framework\TestCase
 {
     public function testNamedReturnsException(): void
     {
-        $tag = Tag::fromString('1.2.3');
+        $tag = KeepAChangelog\Tag::fromString('1.2.3');
 
-        $exception = UnknownRelease::named($tag);
+        $exception = KeepAChangelog\UnknownRelease::named($tag);
 
         $expected = \sprintf(
             'Tag "%s" does not refer to a known release.',
